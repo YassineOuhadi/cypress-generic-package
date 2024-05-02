@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 import { 
-    ButtonEntry, 
+    BUTTON_ENTRY, 
     IGenericButton 
 } from "../IGenericButton";
 
@@ -20,7 +20,7 @@ class GenericButton extends GenericComponent implements IGenericButton {
     /**
      * The type of button entry.
      */
-    entry: ButtonEntry = ButtonEntry.BUTTON;
+    entry: BUTTON_ENTRY = BUTTON_ENTRY.BUTTON;
 
     /**
      * The text displayed on the button.
@@ -79,18 +79,18 @@ class GenericButton extends GenericComponent implements IGenericButton {
         this.text = text;
     }
 
-    getEntry(): ButtonEntry {
+    getEntry(): BUTTON_ENTRY {
         return this.entry;
     }
 
     setEntry(
         entry: string
     ) {
-        this.entry = entry as ButtonEntry;
+        this.entry = entry as BUTTON_ENTRY;
     }
 }
 
 export { 
     GenericButton, 
-    ButtonEntry 
+    BUTTON_ENTRY 
 };

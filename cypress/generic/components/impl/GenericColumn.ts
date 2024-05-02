@@ -16,7 +16,7 @@ import {
 
 import { 
     IGenericColumn, 
-    SORTING 
+    SORTING_ORDER 
 } from "../IGenericColumn";
 
 /**
@@ -29,7 +29,7 @@ class GenericColumn extends GenericComponent implements IGenericColumn {
     /**
      * The sorting value of the column.
      */
-    sortingvalue: SORTING = SORTING.NONE;
+    sortingvalue: SORTING_ORDER = SORTING_ORDER.NONE;
 
     /**
      * The filtering input associated with the column.
@@ -100,7 +100,7 @@ class GenericColumn extends GenericComponent implements IGenericColumn {
     /**
      * Gets the sorting value of the column.
      * 
-     * @returns {SORTING} - The sorting value.
+     * @returns {SORTING_ORDER} - The sorting value.
      */
     getSort() {
         return this.sortingvalue;
@@ -109,10 +109,10 @@ class GenericColumn extends GenericComponent implements IGenericColumn {
     /**
      * Sets the sorting value of the column.
      * 
-     * @param {SORTING} columnsorting - The sorting value to set.
+     * @param {SORTING_ORDER} columnsorting - The sorting value to set.
      */
     setSort(
-        columnsorting: SORTING
+        columnsorting: SORTING_ORDER
     ) {
         this.sortingvalue = columnsorting;
     }
@@ -153,13 +153,13 @@ class GenericColumn extends GenericComponent implements IGenericColumn {
     /**
      * Performs sorting on the column.
      * 
-     * @param {SORTING} columnsorting - The sorting value.
+     * @param {SORTING_ORDER} columnsorting - The sorting value.
      */
     sorting(
-        columnsorting: SORTING
+        columnsorting: SORTING_ORDER
     ) {
         this.setSort(columnsorting);
-        if (columnsorting === SORTING.DECREMENT) {
+        if (columnsorting === SORTING_ORDER.DECREMENT) {
             // this.getSortButton().entry === ButtonEntry.BUTTON
             this.getSortButton()!.click()
         } else {
@@ -185,5 +185,5 @@ class GenericColumn extends GenericComponent implements IGenericColumn {
 
 export { 
     GenericColumn, 
-    SORTING 
+    SORTING_ORDER as SORTING 
 };

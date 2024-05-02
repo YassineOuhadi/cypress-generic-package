@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 import {
-    ButtonEntry,
+    BUTTON_ENTRY,
     GenericButton
 } from "./GenericButton";
 
@@ -127,7 +127,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
                     new GenericButton(
                         columnName + '_sort',
                         sortbuttonFn().button,
-                        [ButtonEntry.BUTTON]
+                        [BUTTON_ENTRY.BUTTON]
                     )
                 );
             }

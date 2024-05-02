@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 import { 
+    GRAPH_ENTRY,
     IGenericGraph 
 } from "../IGenericGraph";
 
@@ -9,12 +10,6 @@ import {
     GenericComponent
 } from "./GenericComponent";
 
-// Enum for valid graph entries
-enum GraphEntry {
-    CHART = 'CHART', // JsChart, Echarts, etc.
-    CANVAS = 'CANVAS' // HTML Canvas, SVG, etc.
-}
-
 /**
  * Represents a generic graph component.
  * 
@@ -22,7 +17,7 @@ enum GraphEntry {
  */
 class GenericGraph extends GenericComponent implements IGenericGraph {
 
-    entries: GraphEntry[];
+    entries: GRAPH_ENTRY[];
 
     /**
      * Constructs a new GenericGraph object.
@@ -35,7 +30,7 @@ class GenericGraph extends GenericComponent implements IGenericGraph {
     constructor(
         name: string, 
         cyElement: () => Cypress.Chainable<any>, 
-        types: GraphEntry[], 
+        types: GRAPH_ENTRY[], 
         api?: string, 
         method?: string, 
         dataFromBackendByDefault?: boolean, 
@@ -58,6 +53,5 @@ class GenericGraph extends GenericComponent implements IGenericGraph {
 }
 
 export { 
-    GenericGraph, 
-    GraphEntry 
+    GenericGraph 
 };

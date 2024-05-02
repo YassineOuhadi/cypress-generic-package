@@ -5,7 +5,7 @@ import {
 } from "../../assertions";
 
 import { 
-    FieldEntry, 
+    FIELD_ENTRY, 
     IGenericField
 } from "../IGenericField";
 
@@ -22,7 +22,7 @@ import {
 class GenericField extends GenericComponent implements IGenericField {
 
     /** @var entries - An array of input types supported by the field. */
-    entries: FieldEntry[];
+    entries: FIELD_ENTRY[];
 
     /** @var placeholder - Optional placeholder text for the field. */
     placeholder?: string;
@@ -43,7 +43,7 @@ class GenericField extends GenericComponent implements IGenericField {
     constructor(
         name: string, 
         cyElement: () => Cypress.Chainable<any>, 
-        types: FieldEntry[], 
+        types: FIELD_ENTRY[], 
         api?: string, 
         method?: string, 
         dataFromBackendByDefault?: boolean, 
@@ -71,10 +71,10 @@ class GenericField extends GenericComponent implements IGenericField {
     /**
      * Adds a new entry to the entries array.
      * 
-     * @param {FieldEntry} entry - The entry to add.
+     * @param {FIELD_ENTRY} entry - The entry to add.
       */
     addToEntries(
-        entry: FieldEntry
+        entry: FIELD_ENTRY
     ) {
         if (!this.entries.includes(entry)) {
             this.entries.push(entry);
@@ -84,10 +84,10 @@ class GenericField extends GenericComponent implements IGenericField {
     /**
      * Removes an entry from the entries array.
      * 
-     * @param {FieldEntry} entry - The entry to remove.
+     * @param {FIELD_ENTRY} entry - The entry to remove.
      */
     removeFromEntries(
-        entry: FieldEntry
+        entry: FIELD_ENTRY
     ) {
         const index = this.entries.indexOf(entry);
         if (index !== -1) {
@@ -127,7 +127,7 @@ class GenericField extends GenericComponent implements IGenericField {
     override type(
         text: string
     ) {
-        const isInput = this.entries.includes(FieldEntry.INPUT);
+        const isInput = this.entries.includes(FIELD_ENTRY.INPUT);
         const isAutoComplete = this.getComponentMenu() !== undefined;
 
         if (isInput && isAutoComplete) {
@@ -141,7 +141,7 @@ class GenericField extends GenericComponent implements IGenericField {
      * Overrides the click method to click on the element, considering auto-complete functionality if available.
      */
     override click() {
-        const isInput = this.entries.includes(FieldEntry.INPUT);
+        const isInput = this.entries.includes(FIELD_ENTRY.INPUT);
         const isAutoComplete = this.getComponentMenu() !== undefined;
         const cyElement = this.cyElement();
 
@@ -183,7 +183,7 @@ class GenericField extends GenericComponent implements IGenericField {
                     : values = [values];
 
                 // Handle input type
-                if (this.entries.includes(FieldEntry.INPUT)) {
+                if (this.entries.includes(FIELD_ENTRY.INPUT)) {
                     values.forEach(value => {
                         // Click
                         this.click();
@@ -201,7 +201,7 @@ class GenericField extends GenericComponent implements IGenericField {
                 }
 
                 // Handle MULTISELECT field type
-                else if (this.entries.includes(FieldEntry.MULTISELECT)) {
+                else if (this.entries.includes(FIELD_ENTRY.MULTISELECT)) {
                     if (this.getComponentMenu() !== undefined) {
                         // Enter value into the input
                         this.click();
@@ -215,7 +215,7 @@ class GenericField extends GenericComponent implements IGenericField {
                 }
 
                 // Handle SELECT field type
-                else if (this.entries.includes(FieldEntry.SELECT)) {
+                else if (this.entries.includes(FIELD_ENTRY.SELECT)) {
                     // Select option
                     this.select(values);
                 }
@@ -225,7 +225,7 @@ class GenericField extends GenericComponent implements IGenericField {
                     // Handle other cases
                 }
             } else {
-                if (this.entries.includes(FieldEntry.INPUT) && this.entries.includes(FieldEntry.MULTISELECT)) {
+                if (this.entries.includes(FIELD_ENTRY.INPUT) && this.entries.includes(FIELD_ENTRY.MULTISELECT)) {
                     // Handle input type
                     this.click();
 
@@ -261,7 +261,7 @@ class GenericField extends GenericComponent implements IGenericField {
     override validateFilledFields(values: string | string[]) {
         console.log('***************validateFilledFields', values)
         // Handle input type
-        if (this.entries.includes(FieldEntry.INPUT)) {
+        if (this.entries.includes(FIELD_ENTRY.INPUT)) {
 
             // Handle INPUT Auto Complete
             if (this.getComponentMenu()) {
@@ -281,7 +281,7 @@ class GenericField extends GenericComponent implements IGenericField {
         }
 
         // Handle SELECT input type
-        else if (this.entries.includes(FieldEntry.SELECT)) {
+        else if (this.entries.includes(FIELD_ENTRY.SELECT)) {
             // Assert that the select input exists
             this.exist();
             // Validate value
@@ -297,5 +297,5 @@ class GenericField extends GenericComponent implements IGenericField {
 
 export { 
     GenericField, 
-    FieldEntry 
+    FIELD_ENTRY as FieldEntry 
 };
