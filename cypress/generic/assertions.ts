@@ -46,12 +46,48 @@ const assertURLIncludes = (
  */
 const assertURLNotIncludes = (
     partialURL: string
-) => {
+): Cypress.Chainable<boolean> => {
     const assertion = cy.url()
         .should('not.include', partialURL);
 
     return logAssertion(`Assert URL Not Includes "${partialURL}"`, assertion);
 };
+
+/**
+ * Asserts that the status code is within the specified range.
+ * 
+ * @param statusCode - The status code to assert.
+ * @param min - The minimum value of the range.
+ * @param max - The maximum value of the range.
+ * @returns void
+ */
+const assertStatusCodeInRange = (
+    statusCode: number,
+    min: number,
+    max: number
+): void => {
+    if (statusCode < min || statusCode > max) {
+        throw new Error(`Expected status code to be in range ${min}-${max}, but received ${statusCode}`);
+    }
+}
+
+/**
+ * Asserts that the status code is not within the specified range.
+ * 
+ * @param statusCode - The status code to assert.
+ * @param min - The minimum value of the range.
+ * @param max - The maximum value of the range.
+ * @returns void
+ */
+const assertStatusCodeNotInRange = (
+    statusCode: number,
+    min: number,
+    max: number
+): void => {
+    if (statusCode >= min && statusCode <= max) {
+        throw new Error(`Expected status code to not be in range ${min}-${max}, but received ${statusCode}`);
+    }
+}
 
 /**
  * Asserts the existence of the specified element(s).
@@ -347,6 +383,8 @@ const assertAtLeastOneElementWithCssProperty = (
 export {
     assertURLIncludes,
     assertURLNotIncludes,
+    assertStatusCodeInRange,
+    assertStatusCodeNotInRange,
     assertElementExist,
     assertElementVisible,
     assertElementNotVisible,
