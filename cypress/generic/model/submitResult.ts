@@ -29,4 +29,6 @@ class SubmitResult {
     }
 }
 
-export default SubmitResult;
+export {
+    SubmitResult
+};

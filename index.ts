@@ -42,3 +42,7 @@ export {
 export { 
     GenericGraph 
 } from './cypress/generic/components/impl/GenericGraph';
+
+export { 
+    SubmitResult 
+} from './cypress/generic/model/submitResult';
