@@ -1,0 +1,20 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "system",
+    "target": "es5",
+    "allowJs": true,
+    "declaration": true
+  },
+  "include": ["./index.ts"],
+  "exclude": ["node_modules"]
+}
