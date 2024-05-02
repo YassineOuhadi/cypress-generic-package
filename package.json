@@ -1,5 +1,5 @@
 {
-  "name": "@yassinouhadi/cypress-generic-package",
+  "name": "@watch/cypress-generic-package",
   "version": "1.0.0",
   "description": "Cypress tests generic pom objects package",
   "main": "dist/cy-generic-objects.js",
@@ -8,7 +8,7 @@
     "dist"
   ],
   "publishConfig": {
-    "@yassinouhadi:registry": "https://gitlab.com/api/v4/projects/57446558/packages/npm/"
+    "@watch:registry": "https://gitlab.tech.orange/api/v4/projects/376571/packages/npm/"
   },
   "scripts": {
     "build": "webpack"
