@@ -2,11 +2,11 @@
 
 export { 
     IGenericGraph, 
-    GraphEntry 
+    GRAPH_ENTRY 
 };
 
 // Enum for valid graph entries
-enum GraphEntry {
+enum GRAPH_ENTRY {
     CHART = 'CHART', // JsChart, Echarts, etc.
     CANVAS = 'CANVAS' // HTML Canvas, SVG, etc.
 }
@@ -14,7 +14,7 @@ enum GraphEntry {
 interface IGenericGraph extends IGenericComponent {
     name: string;
     cyElement: () => Cypress.Chainable<any>;
-    entries: GraphEntry[];
+    entries: GRAPH_ENTRY[];
     api?: string;
     method?: string;
     dataFromBackendByDefault?: boolean;

@@ -6,18 +6,18 @@ import {
 
 export { 
     IGenericButton, 
-    ButtonEntry 
+    BUTTON_ENTRY 
 };
 
 // Enum for valid button entries
-enum ButtonEntry {
+enum BUTTON_ENTRY {
     BUTTON = 'BUTTON',
     SUBMIT = 'SUBMIT',
     HREF = 'HREF'
 }
 
 interface IGenericButton extends IGenericComponent {
-    entry: ButtonEntry;
+    entry: BUTTON_ENTRY;
     text?: string;
     name: string;
     onLoadRequestUrl?: string;
@@ -27,6 +27,6 @@ interface IGenericButton extends IGenericComponent {
     onEventHttpMethod?: string;
     getText(): string;
     setText(text: string): void;
-    getEntry(): ButtonEntry;
+    getEntry(): BUTTON_ENTRY;
     setEntry(entry: string): void;
 }

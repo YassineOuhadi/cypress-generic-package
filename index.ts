@@ -8,6 +8,30 @@ export {
 };
 
 export { 
+     COMPONENT_TYPE
+} from './cypress/generic/components/IGenericComponent';
+
+export { 
+    FIELD_ENTRY
+} from './cypress/generic/components/IGenericField';
+
+export { 
+    BUTTON_ENTRY
+} from './cypress/generic/components/IGenericButton';
+
+export { 
+    GRAPH_ENTRY
+} from './cypress/generic/components/IGenericGraph';
+
+export { 
+    SORTING_ORDER
+} from './cypress/generic/components/IGenericColumn';
+
+export { 
+    LANGUAGE
+} from './cypress/generic/components/IGenericComponent';
+
+export { 
     GenericComponent 
 } from './cypress/generic/components/impl/GenericComponent';
 

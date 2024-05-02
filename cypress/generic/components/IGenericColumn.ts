@@ -15,14 +15,14 @@ import {
 /**
  * Enum representing sorting options.
  */
-enum SORTING {
+enum SORTING_ORDER {
     INCREMENT,
     DECREMENT,
     NONE
 }
 
 interface IGenericColumn extends IGenericComponent {
-    sortingvalue: SORTING;
+    sortingvalue: SORTING_ORDER;
     filteringinput?: IGenericField;
     sortingbutton?: IGenericButton;
     EditActionButton?: IGenericButton;
@@ -31,16 +31,16 @@ interface IGenericColumn extends IGenericComponent {
 
     getSortButton(): IGenericButton | undefined;
     setSortButton(sortbutton: IGenericButton): void;
-    getSort(): SORTING;
-    setSort(columnsorting: SORTING): void;
+    getSort(): SORTING_ORDER;
+    setSort(columnsorting: SORTING_ORDER): void;
     getFilterInput(): IGenericField | undefined;
     setFilterInput(filterinput: IGenericField): void;
     getFilter(): Cypress.Chainable<string> | undefined;
-    sorting(columnsorting: SORTING): void;
+    sorting(columnsorting: SORTING_ORDER): void;
     filtering(by: string): void;
 }
 
 export { 
     IGenericColumn, 
-    SORTING 
+    SORTING_ORDER 
 };

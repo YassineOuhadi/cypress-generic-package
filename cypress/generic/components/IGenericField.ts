@@ -5,7 +5,7 @@ import {
 } from "./IGenericComponent";
 
 // Enum for valid field entries
-enum FieldEntry {
+enum FIELD_ENTRY {
     INPUT = 'INPUT',
     SELECT = 'SELECT',
     MULTISELECT = 'MULTISELECT',
@@ -16,12 +16,12 @@ enum FieldEntry {
 }
 
 interface IGenericField extends IGenericComponent {
-    entries: FieldEntry[];
+    entries: FIELD_ENTRY[];
     placeholder?: string;
     optional: boolean;
 
-    addToEntries(entry: FieldEntry): void;
-    removeFromEntries(entry: FieldEntry): void;
+    addToEntries(entry: FIELD_ENTRY): void;
+    removeFromEntries(entry: FIELD_ENTRY): void;
     getPlaceholder(): string | undefined;
     setPlaceholder(placeholder: string): void;
     type(text: string): Cypress.Chainable<any>;
@@ -33,5 +33,5 @@ interface IGenericField extends IGenericComponent {
 
 export { 
     IGenericField, 
-    FieldEntry 
+    FIELD_ENTRY 
 };

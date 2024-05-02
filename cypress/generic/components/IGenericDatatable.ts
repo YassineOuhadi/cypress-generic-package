@@ -2,7 +2,7 @@
 
 import { 
     IGenericColumn, 
-    SORTING 
+    SORTING_ORDER 
 } from "./IGenericColumn";
 
 import { 
@@ -27,7 +27,7 @@ interface IGenericDatatable extends IGenericComponent {
     getPageSize(): number;
     getCurrentPage(): number;
     setCurrentPage(pageindex: number): void;
-    sorting(bycolumn: string, sortingvalue: SORTING): void;
+    sorting(bycolumn: string, sortingvalue: SORTING_ORDER): void;
     filtering(bycolumn: string, filteringvalue: string): Cypress.Chainable<any> | undefined;
     getFirstPageButton(): IGenericComponent | undefined;
     getNextPageButton(): IGenericComponent | undefined;
