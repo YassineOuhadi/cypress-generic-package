@@ -3,7 +3,7 @@
   "files": [
     "../cypress.config.ts"
   ],
-  "include": ["**/*.ts", "./cypress.d.ts"],
+  "include": ["**/*.ts", "./support/cypress.d.ts"],
   "compilerOptions": {
     "sourceMap": false,
     "types": ["node", "cypress"],

@@ -1,12 +1,12 @@
 /// <reference types="Cypress" />
 
-import { 
-    IGenericMenu 
+import {
+    IGenericMenu
 } from "../IGenericMenu";
 
-import { 
-    COMPONENT_TYPE, 
-    GenericComponent 
+import {
+    COMPONENT_TYPE,
+    GenericComponent
 } from "./GenericComponent";
 
 /**
@@ -24,22 +24,22 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
      * @param {string} [api] - Optional data API URL.
      */
     constructor(
-        name: string, 
-        cyelement?: () => Cypress.Chainable<any>, 
-        api?: string, 
-        onLoadRequestHttpMethod?: string, 
-        dataFromBackendByDefault?: boolean, 
-        oneventapi?: string, 
+        name: string,
+        cyelement?: () => Cypress.Chainable<any>,
+        api?: string,
+        onLoadRequestHttpMethod?: string,
+        dataFromBackendByDefault?: boolean,
+        oneventapi?: string,
         onEventHttpMethod?: string
     ) {
         super(
-            COMPONENT_TYPE.MENU, 
-            name, 
-            cyelement, 
-            api, 
-            onLoadRequestHttpMethod, 
-            dataFromBackendByDefault, 
-            oneventapi, 
+            COMPONENT_TYPE.MENU,
+            name,
+            cyelement,
+            api,
+            onLoadRequestHttpMethod,
+            dataFromBackendByDefault,
+            oneventapi,
             onEventHttpMethod
         );
     }
@@ -120,11 +120,10 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
         valuesArray.forEach(value => {
             this.interactWithMenu(frameElement => {
                 frameElement.then(() => {
-                    cy.wrap(1).should('eq', 2, )
                     frameElement
-                    .onFail(`Failed to find ${value} inside ${this.name}`)
-                    .contains(value)
-                    .click({ force: true });
+                        .onFail('Failed to find this text')
+                        .contains(value)
+                        .click({ force: true });
                 })
             });
         });
@@ -191,7 +190,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
      * @returns {Promise<string[]>} - A promise resolving to an array of selected strings.
      */
     selectRandomItems(
-        isMultiple: boolean, 
+        isMultiple: boolean,
         toignore?: string[]
     ): Promise<string[]> {
         return new Promise<string[]>((resolve, reject) => {
@@ -300,6 +299,6 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
     }
 }
 
-export { 
-    GenericMenu 
+export {
+    GenericMenu
 };
