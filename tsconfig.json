@@ -15,6 +15,6 @@
     "allowJs": true,
     "declaration": true
   },
-  "include": ["./index.ts"],
+  "include": ["cypress.config.ts", "./index.ts"],
   "exclude": ["node_modules"]
 }

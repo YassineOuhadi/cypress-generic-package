@@ -23,6 +23,23 @@ import "../generic/commands";
 declare global {
   namespace Cypress {
     interface Chainable {
+
+      /**
+       * Custom command to select DOM element by data-cy attribute.
+       * @example cy.dataCy('greeting')
+       */
+      dataCy(value: string): Chainable<JQuery<HTMLElement>>
+
+      /**
+       * Custom command to type a few random words into input elements
+       * @param count=3
+       * @example cy.get('input').typeRandomWords()
+       */
+      typeRandomWords(
+        count?: number,
+        options?: Partial<TypeOptions>
+      ): Chainable<JQuery<HTMLElement>>
+      
       interceptAPIRequest(
         method: string, 
         url: string, 
@@ -32,6 +49,10 @@ declare global {
       waitingAliasRequest(
         alias: string, 
         timeout?: number
+      ): Chainable<any>;
+      
+      onFail(
+        prevSubject: any, 
       ): Chainable<any>;
     }
   }

@@ -120,7 +120,9 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
         valuesArray.forEach(value => {
             this.interactWithMenu(frameElement => {
                 frameElement.then(() => {
+                    cy.wrap(1).should('eq', 2, )
                     frameElement
+                    .onFail(`Failed to find ${value} inside ${this.name}`)
                     .contains(value)
                     .click({ force: true });
                 })

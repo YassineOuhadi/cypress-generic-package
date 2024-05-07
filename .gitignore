@@ -7,3 +7,6 @@ package-lock.json
 
 /dist
 .npmrc
+
+cypress.config.ts
+/cypress/e2e

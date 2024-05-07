@@ -227,6 +227,7 @@ class GenericForm extends GenericComponent implements IGenericForm {
      * Submits the form.
      */
     submitForm() {
+        // TODO: this.cyElement().submit() // Buutons, Submits???, also valide eatch compnent is attr input or ....
         const submitButtons = this.getSubmitButtons();
         if (submitButtons.length > 0) {
             // submitFields.forEach(submitField => {
