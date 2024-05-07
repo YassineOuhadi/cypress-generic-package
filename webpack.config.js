@@ -1,5 +1,5 @@
 // webpack.config.js
-const path = import('path');
+const path = require('path');
 
 module.exports = {
   mode: 'production',
