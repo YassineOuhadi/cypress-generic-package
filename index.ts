@@ -1,10 +1,8 @@
 // index.ts
-import * as Commands from './cypress/generic/commands';
 import * as Assertions from './cypress/generic/assertions';
 import * as Logs from './cypress/generic/logs';
 
 export {
-    Commands,
     Assertions,
     Logs
 };
