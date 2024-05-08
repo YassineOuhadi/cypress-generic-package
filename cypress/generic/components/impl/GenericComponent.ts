@@ -591,7 +591,9 @@ class GenericComponent implements IGenericComponent {
 
             // If it's a multi click
             values.forEach((text: string) => {
-                this.cyElement().contains(text).click({ force: true });
+                this.cyElement()
+                .onFail(`Failed to find ${text} in ${this.getName()}.`)
+                .contains(text).click({ force: true });
             })
         } else {
             this.cyElement().click({ force: true }).then(() => {

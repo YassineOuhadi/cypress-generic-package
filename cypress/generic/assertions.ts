@@ -179,8 +179,9 @@ const assertElementContains = (
     // Iterate through each text value and assert element contains it
     return texts.forEach(text => {
         const assertion = cyselector(selectorOrElement)
+            .onFail(`Failed to find ${text}.`)
             .should('exist')
-            .wait(600)
+            .wait(100)
             .should('contain', text)
         return logAssertion(`Assert Element Contains "${text}"`, assertion);
     });

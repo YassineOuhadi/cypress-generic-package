@@ -121,7 +121,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
             this.interactWithMenu(frameElement => {
                 frameElement.then(() => {
                     frameElement
-                        .onFail('Failed to find this text')
+                        .onFail(`Failed to find ${value} in ${this.getName()}.`)
                         .contains(value)
                         .click({ force: true });
                 })

@@ -28,7 +28,9 @@ declare global {
        * Custom command to select DOM element by data-cy attribute.
        * @example cy.dataCy('greeting')
        */
-      dataCy(value: string): Chainable<JQuery<HTMLElement>>
+      dataCy(
+        value: string
+      ): Chainable<JQuery<HTMLElement>>
 
       /**
        * Custom command to type a few random words into input elements
