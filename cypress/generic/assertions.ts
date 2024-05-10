@@ -167,24 +167,48 @@ const assertElementShould = (
  * 
  * @param selectorOrElement - The selector or Cypress.Chainable object representing the element to assert.
  * @param values - The value(s) to assert.
- * @returns A Cypress.Chainable object representing the assertion result.
+ * @returns A Cypress.Chainable object representing the latest assertion result.
  */
 const assertElementContains = (
     selectorOrElement: string | Cypress.Chainable<any>,
-    values: string | string[]
-) => {
-    // Convert single string to an array
-    const texts = Array.isArray(values) ? values : [values];
+    values: string | string[],
+    errormessage?: string
+): Cypress.Chainable<any> => {
+    let currentassertion: any;
+    let faillistener: any;
+
+    const array = Array.isArray(values)
+        ? values
+        : [values];
 
     // Iterate through each text value and assert element contains it
-    return texts.forEach(text => {
-        const assertion = cyselector(selectorOrElement)
-            .onFail(`Failed to find ${text}.`)
-            .should('exist')
-            .wait(100)
-            .contains(text)
-        return logAssertion(`Assert Element Contains "${text}"`, assertion);
+    array.forEach(text => {
+
+        // cy.onFail(`Failed to find ${text}.`)
+
+        currentassertion = cyselector(selectorOrElement)
+            .wait(700)
+            .contains(text);
+
+        // cy.removeFailListeners()
+
+        // cy.onFail(
+        //     errormessage
+        //         ? errormessage
+        //         : `Failed to find value ${text}.`
+        // )
+
+        // currentassertion = cyselector(
+        //     selectorOrElement
+        // ).wait(1000).
+        //  contains(text);
+
+        // cy.removeFailListeners()
+
+        logAssertion(`Assert Element Contains "${text}"`, currentassertion);
     });
+
+    return currentassertion;
 };
 
 /**

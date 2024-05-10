@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 
+import { assertElementContains } from "../../assertions";
 import {
     IGenericMenu
 } from "../IGenericMenu";
@@ -119,17 +120,35 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
         const valuesArray = typeof values === 'string' ? [values] : values;
         valuesArray.forEach(value => {
             this.interactWithMenu(frameElement => {
-                let faillistener: any;
-                cy.onFail(`Failed to find ${value} in ${this.getName()}.`).then((listener) => {
-                    frameElement.then(() => {
-                        frameElement
-                            .contains(value)
-                            .click({ force: true });
-                    })
-                    faillistener = listener;;
-                }).then(() => {
-                    cy.removeFailListener(faillistener)
-                });
+
+                // let faillistener: any;
+                // cy.onFail(`Failed to find ${value} in ${this.getName()}.`).then((listener) => {
+                //     frameElement.then(() => {
+                //         frameElement
+                //             .contains(value)
+                //             .click({ force: true });
+                //     })
+                //     faillistener = listener;;
+                // }).then(() => {
+                //     cy.removeFailListeners(faillistener)
+                // });
+
+                // frameElement.then(() => {
+                //     assertElementContains(
+                //         frameElement, 
+                //         value,
+                //         `Failed to find ${value} in ${this.getName()}.`
+                //     );
+                // })
+
+                cy.onFail(`Failed to find ${value}.`)
+
+                frameElement
+                    .contains(value)
+                    .click({ force: true });
+
+                cy.removeFailListeners()
+
             });
         });
     }

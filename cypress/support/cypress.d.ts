@@ -54,11 +54,11 @@ declare global {
       ): Chainable<any>;
       
       onFail(
-        message: string,
-      ): Chainable<any>;
+        message?: string,
+      ): Promise<any>;
 
-      removeFailListener(
-        listener: any
+      removeFailListeners(
+        listener?: any
       ): Chainable<any>;
     }
   }

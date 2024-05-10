@@ -46,34 +46,40 @@ Cypress.Commands.add("waitingAliasRequest", (alias: string, timeout?: number) =>
     });
 });
 
-Cypress.Commands.add('onFail', (message): any => {
+Cypress.Commands.add('onFail', (message?): Promise<any> => {
 
     let listener = (error: { name: string; message: string; }, runnable: any) => {
         error.name = 'CustomError'
         error.message = message
+            ? message 
+            : error.message;
         throw error // throw error to have test still fail
     }
 
     cy.on('fail', listener)
 
-    return listener
+    return new Promise((resolve, reject) => {
+        resolve(listener);
+    });
 })
 
-Cypress.Commands.add('removeFailListener', (listener): any => {
+Cypress.Commands.add('removeFailListeners', (listener?): any => {
+    let removelistener = () => {
+        listener
+            ? cy.removeListener('fail', listener)
+            : cy.removeAllListeners('fail')
+        // cy.removeListener('command:end', removelistener)
+    }
+    
+    removelistener()
 
     const defaultlistener = (error: { name: any; message: any; }) => {
         error.name = error.name
         error.message = error.message
         throw error
     }
-
-    let removelistener = () => {
-        cy.removeListener('fail', listener)
-        cy.removeListener('command:end', removelistener)
-        cy.on('fail', defaultlistener)
-    }
     
-    removelistener()
+    // cy.on('fail', defaultlistener)
 })
 
 // Cypress.Commands.overwrite('should', (originalFn, actual, assertion, expected, options) => {

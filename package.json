@@ -1,6 +1,6 @@
 {
   "name": "@watch/cypress-generic-package",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Cypress tests generic pom objects package",
   "main": "dist/cy-generic-objects.js",
   "types": "dist/index.d.ts",
