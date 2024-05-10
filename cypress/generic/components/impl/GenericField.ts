@@ -259,7 +259,6 @@ class GenericField extends GenericComponent implements IGenericField {
      * @param {string} value - The value to validate in the input field.
      */
     override validateFilledFields(values: string | string[]) {
-        console.log('***************validateFilledFields', values)
         // Handle input type
         if (this.entries.includes(FIELD_ENTRY.INPUT)) {
 

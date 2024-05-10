@@ -182,7 +182,7 @@ const assertElementContains = (
             .onFail(`Failed to find ${text}.`)
             .should('exist')
             .wait(100)
-            .should('contain', text)
+            .contains(text)
         return logAssertion(`Assert Element Contains "${text}"`, assertion);
     });
 };

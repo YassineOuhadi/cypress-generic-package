@@ -119,12 +119,17 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
         const valuesArray = typeof values === 'string' ? [values] : values;
         valuesArray.forEach(value => {
             this.interactWithMenu(frameElement => {
-                frameElement.then(() => {
-                    frameElement
-                        .onFail(`Failed to find ${value} in ${this.getName()}.`)
-                        .contains(value)
-                        .click({ force: true });
-                })
+                let faillistener: any;
+                cy.onFail(`Failed to find ${value} in ${this.getName()}.`).then((listener) => {
+                    frameElement.then(() => {
+                        frameElement
+                            .contains(value)
+                            .click({ force: true });
+                    })
+                    faillistener = listener;;
+                }).then(() => {
+                    cy.removeFailListener(faillistener)
+                });
             });
         });
     }

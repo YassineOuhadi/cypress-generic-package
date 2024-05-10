@@ -54,7 +54,11 @@ declare global {
       ): Chainable<any>;
       
       onFail(
-        prevSubject: any, 
+        message: string,
+      ): Chainable<any>;
+
+      removeFailListener(
+        listener: any
       ): Chainable<any>;
     }
   }
