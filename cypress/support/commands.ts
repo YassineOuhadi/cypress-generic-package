@@ -17,7 +17,7 @@ import {
 //     sensitive: boolean
 // }
 
-Cypress.Commands.add('dataCy', (value) => {
+Cypress.Commands.add('dataCy', (value: string) => {
     return cy.get(`[data-cy=${value}]`)
 })
 
@@ -46,13 +46,13 @@ Cypress.Commands.add("waitingAliasRequest", (alias: string, timeout?: number) =>
     });
 });
 
-Cypress.Commands.add('onFail', (message?): Promise<any> => {
+Cypress.Commands.add('onFail', (message?): any => {
 
     let listener = (error: { name: string; message: string; }, runnable: any) => {
-        error.name = 'CustomError'
+        error.name = 'Error'
         error.message = message
-            ? message 
-            : error.message;
+                ? message 
+                : error.message;
         throw error // throw error to have test still fail
     }
 

@@ -133,22 +133,15 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
                 //     cy.removeFailListeners(faillistener)
                 // });
 
-                // frameElement.then(() => {
-                //     assertElementContains(
-                //         frameElement, 
-                //         value,
-                //         `Failed to find ${value} in ${this.getName()}.`
-                //     );
-                // })
+                let option  = assertElementContains(
+                    frameElement,
+                    value,
+                    `Failed to find ${value} in ${this.getName()}.`
+                );
 
-                cy.onFail(`Failed to find ${value}.`)
-
-                frameElement
-                    .contains(value)
-                    .click({ force: true });
-
-                cy.removeFailListeners()
-
+                option!.click(
+                    { force: true }
+                );
             });
         });
     }

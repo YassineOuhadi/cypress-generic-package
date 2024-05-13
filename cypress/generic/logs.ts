@@ -9,9 +9,9 @@
  */
 const logAssertion = (
     message: string,
-    assertion: Cypress.Chainable<any>
+    assertion?: Cypress.Chainable<any>
 ): Cypress.Chainable<any> => {
-    return assertion.then(result => {
+    return assertion!.then(result => {
         const assertionPassed = !!result;
         const assertionResultMessage = assertionPassed ? 'Passed' : 'Failed';
         const logMessage = `${message}: ${assertionResultMessage}`;
@@ -26,7 +26,6 @@ const logAssertion = (
         return assertion;
     });
 };
-
 
 /**
  * Logs an intercept on event request.

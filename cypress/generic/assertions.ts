@@ -25,11 +25,25 @@ const cyselector = (
  * @returns A Cypress.Chainable<boolean> representing the assertion result.
  */
 const assertURLIncludes = (
-    partialURL: string
+    partialURL: string,
+    errormessage?: string
 ): Cypress.Chainable<boolean> => {
     // Return the Cypress.Chainable<boolean> instance
     return cy.url().then(url => {
-        const assertionPassed = url.includes(partialURL);
+
+        let assertionPassed;
+
+        cy.onFail(
+            errormessage
+                ? errormessage
+                : `Expected URL to include "${partialURL}", but received "${url}"`
+        );
+
+        assertionPassed = url.includes(partialURL);
+        if (!assertionPassed) throw new Error();
+
+        cy.removeFailListeners();
+
         const message = `Assert URL Includes "${partialURL}": ${assertionPassed ? 'Passed' : 'Failed'}`;
         return logAssertion(message, cy.wrap(assertionPassed)); // Return the assertion result
     }).then((result) => {
@@ -45,10 +59,22 @@ const assertURLIncludes = (
  * @returns A Cypress.Chainable<boolean> representing the assertion result.
  */
 const assertURLNotIncludes = (
-    partialURL: string
+    partialURL: string,
+    errormessage?: string
 ): Cypress.Chainable<boolean> => {
-    const assertion = cy.url()
+
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected URL to not include "${partialURL}" but received "${cy.url()}"`
+    );
+
+    assertion = cy.url()
         .should('not.include', partialURL);
+
+    cy.removeFailListeners();
 
     return logAssertion(`Assert URL Not Includes "${partialURL}"`, assertion);
 };
@@ -64,11 +90,18 @@ const assertURLNotIncludes = (
 const assertStatusCodeInRange = (
     statusCode: number,
     min: number,
-    max: number
+    max: number,
+    errormessage?: string
 ): void => {
-    if (statusCode < min || statusCode > max) {
-        throw new Error(`Expected status code to be in range ${min}-${max}, but received ${statusCode}`);
-    }
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected status code to be in range ${min}-${max}, but received ${statusCode}`
+    );
+
+    if (statusCode < min || statusCode > max) throw new Error();
+
+    cy.removeFailListeners();
 }
 
 /**
@@ -82,11 +115,18 @@ const assertStatusCodeInRange = (
 const assertStatusCodeNotInRange = (
     statusCode: number,
     min: number,
-    max: number
+    max: number,
+    errormessage?: string
 ): void => {
-    if (statusCode >= min && statusCode <= max) {
-        throw new Error(`Expected status code to not be in range ${min}-${max}, but received ${statusCode}`);
-    }
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected status code to not be in range ${min}-${max}, but received ${statusCode}`
+    );
+
+    if (statusCode >= min && statusCode <= max) throw new Error();
+
+    cy.removeFailListeners();
 }
 
 /**
@@ -98,18 +138,38 @@ const assertStatusCodeNotInRange = (
  */
 const assertElementExist = (
     selector: Cypress.Chainable<any>,
-    expectedLength?: number
+    expectedLength?: number,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
+    let assertion;
+
+    let message;
+    expectedLength
+        ? message = `Assert Elements Length to be ${expectedLength}`
+        : message = 'Assert Element Existence';
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : message
+    );
+
     if (expectedLength) {
         selector.then(elements => {
             expect(elements.length)
                 .to.equal(expectedLength);
         });
-        return logAssertion(`Assert Elements Length to be ${expectedLength}`, selector);
+
+        cy.removeFailListeners();
+        logAssertion(`Assert Elements Length to be ${expectedLength}`, selector);
+        return selector;
     }
 
-    const assertion = selector.should('exist');
-    return logAssertion('Assert Element Existence', assertion);
+    assertion = selector.should('exist');
+
+    cy.removeFailListeners();
+    logAssertion('Assert Element Existence', assertion);
+    return assertion;
 };
 
 /**
@@ -119,10 +179,24 @@ const assertElementExist = (
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 const assertElementVisible = (
-    selectorOrElement: Cypress.Chainable<any>
+    selectorOrElement: Cypress.Chainable<any>,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
-    const assertion = selectorOrElement.should('be.visible');
-    return logAssertion('Assert Element Visible', assertion);
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element to be visible, but received ${selectorOrElement}`
+    );
+
+    assertion = selectorOrElement
+        .should('be.visible');
+
+    cy.removeFailListeners();
+
+    logAssertion('Assert Element Visible', assertion);
+    return assertion;
 };
 
 /**
@@ -132,11 +206,23 @@ const assertElementVisible = (
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 const assertElementNotVisible = (
-    selector: string
+    selector: string,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
-    const assertion = cy.get(selector).should('not.be.visible');
+    let assertion;
 
-    return logAssertion('Assert Element Not Visible', assertion);
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element not to be visible.`
+    );
+
+    assertion = cy.get(selector)
+        .should('not.be.visible');
+
+    cy.removeFailListeners();
+    logAssertion('Assert Element Not Visible', assertion);
+    return assertion;
 };
 
 /**
@@ -152,14 +238,25 @@ const assertElementShould = (
     selectorOrElement: string | Cypress.Chainable<any>,
     as: string,
     value: string,
-    property?: string
+    property?: string,
+    errormessage?: string
 ) => {
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Failed to assert element "${as}" "${property || ''}" "${value}"`
+    );
+
     // Iterate through each text value and assert the specified property
-    const assertion = property
+    assertion = property
         ? cyselector(selectorOrElement).should(as, property!, value)
         : cyselector(selectorOrElement).should(as, value);
 
-    return logAssertion(`Assert Element "${as}" "${property || ''}" "${value}"`, assertion);
+    cy.removeFailListeners();
+    logAssertion(`Assert Element "${as}" "${property || ''}" "${value}"`, assertion);
+    return assertion;
 };
 
 /**
@@ -184,26 +281,18 @@ const assertElementContains = (
     // Iterate through each text value and assert element contains it
     array.forEach(text => {
 
-        // cy.onFail(`Failed to find ${text}.`)
+        cy.onFail(
+            errormessage
+                ? errormessage
+                : `Failed to find ${text}.`
+        );
 
-        currentassertion = cyselector(selectorOrElement)
-            .wait(700)
+        currentassertion = cyselector(
+            selectorOrElement
+        ).wait(400)
             .contains(text);
 
-        // cy.removeFailListeners()
-
-        // cy.onFail(
-        //     errormessage
-        //         ? errormessage
-        //         : `Failed to find value ${text}.`
-        // )
-
-        // currentassertion = cyselector(
-        //     selectorOrElement
-        // ).wait(1000).
-        //  contains(text);
-
-        // cy.removeFailListeners()
+        cy.removeFailListeners();
 
         logAssertion(`Assert Element Contains "${text}"`, currentassertion);
     });
@@ -220,10 +309,25 @@ const assertElementContains = (
  */
 const assertElementNotContains = (
     selectorOrElement: string | Cypress.Chainable<any>,
-    text: string
+    text: string,
+    errormessage?: string
 ) => {
-    const assertion = cyselector(selectorOrElement).should('not.contain', text);
-    return logAssertion(`Assert Element Not Contains "${text}"`, assertion);
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Failed, its contains ${text}.`
+    );
+
+    assertion = cyselector(selectorOrElement)
+        .should('not.contain', text);
+
+    cy.removeFailListeners();
+
+    logAssertion(`Assert Element Not Contains "${text}"`, assertion);
+
+    return assertion;
 };
 
 /**
@@ -233,10 +337,22 @@ const assertElementNotContains = (
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 const assertElementEnabled = (
-    selectorOrElement: Cypress.Chainable<any>
+    selectorOrElement: Cypress.Chainable<any>,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
-    const assertion = selectorOrElement.should('be.enabled');
-    return logAssertion('Assert Element Enabled', assertion);
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element to be enabled, but received ${selectorOrElement}`
+    );
+
+    assertion = selectorOrElement.should('be.enabled');
+
+    cy.removeFailListeners();
+    logAssertion('Assert Element Enabled', assertion);
+    return assertion;
 };
 
 /**
@@ -246,10 +362,22 @@ const assertElementEnabled = (
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 const assertElementDisabled = (
-    selector: string
+    selector: string,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
-    const assertion = cy.get(selector).should('be.disabled');
-    return logAssertion('Assert Element Disabled', assertion);
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element to be disabled, but received ${selector}`
+    );
+
+    assertion = cy.get(selector).should('be.disabled');
+
+    cy.removeFailListeners();
+    logAssertion('Assert Element Disabled', assertion);
+    return assertion;
 };
 
 /**
@@ -259,16 +387,27 @@ const assertElementDisabled = (
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 const assertButtonEnabled = (
-    selectorOrElement: string | Cypress.Chainable<any>
+    selectorOrElement: string | Cypress.Chainable<any>,
+    errormessage?: string
 ) => {
-    const assertion = cyselector(selectorOrElement)
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected button to be enabled, but received ${selectorOrElement}`
+    );
+
+    assertion = cyselector(selectorOrElement)
         .should('exist');
 
     assertion
         .should('be.visible')
         .should('be.enabled');
 
-    return logAssertion('Assert Button Enabled', assertion);
+    cy.removeFailListeners();
+    logAssertion('Assert Button Enabled', assertion);
+    return assertion;
 };
 
 /**
@@ -282,24 +421,29 @@ const assertButtonEnabled = (
 const assertTableContains = (
     selectorOrElement: string | Cypress.Chainable<any>,
     where: string,
-    text: string
+    text: string,
+    errormessage?: string
 ) => {
-    const assertion = cyselector(selectorOrElement).should('exist');
+    let assertion: any;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Failed to find "${text}" at "${where}" in the table.`
+    );
+
+    assertion = cyselector(selectorOrElement)
+        .should('exist');
 
     cy.get('.pagination > li:nth-child(7)').then(($ele) => {
-        if ($ele.find('a').attr('aria-disabled') === 'true') {
-            // Button is disabled, do nothing
+        if ($ele.find('a').attr('aria-disabled') === 'true') { // Button is disabled, do nothing
             return;
-        } else {
-            // Button is enabled, click it and recursively call maybeClick
+        } else { // Button is enabled, click it and recursively call maybeClick
             cy.get('.pagination > :nth-child(6)').click().then(() => {
-                // Perform the assertion
-                assertion.contains(where, text).should('be.visible').then((result) => {
-                    if (!result) {
-                        // Assertion failed, continue to next page
+                assertion.contains(where, text).should('be.visible').then((result: any) => { // Perform the assertion
+                    if (!result) {  // Assertion failed, continue to next page
                         nextPage();
-                    } else {
-                        // Assertion succeeded, stop recursion
+                    } else { // Assertion succeeded, stop recursion
                         return;
                     }
                 });
@@ -308,7 +452,9 @@ const assertTableContains = (
         }
     });
 
-    return logAssertion(`Assert Table Contains "${text}" at "${where}"`, assertion);
+    cy.removeFailListeners();
+    logAssertion(`Assert Table Contains "${text}" at "${where}"`, assertion);
+    return assertion;
 };
 
 /**
@@ -348,9 +494,18 @@ const nextPage = () => {
  * @returns A Cypress.Chainable object representing the assertion result.
  */
 function waitUntilSelect(
-    selectorOrElement: string | Cypress.Chainable<any>
+    selectorOrElement: string | Cypress.Chainable<any>,
+    errormessage?: string
 ) {
-    let assertion = cyselector(selectorOrElement)
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element to be a select element, but received ${selectorOrElement}`
+    );
+
+    assertion = cyselector(selectorOrElement)
         .should('exist');
 
     assertion
@@ -362,7 +517,9 @@ function waitUntilSelect(
         .should('be.visible')
         .and('be.enabled');
 
-    return logAssertion('Wait Until Select', assertion);
+    cy.removeFailListeners();
+    logAssertion('Wait Until Select', assertion);
+    return assertion;
 }
 
 /**
@@ -374,16 +531,27 @@ function waitUntilSelect(
  */
 const existWithCondition = (
     selector: string,
-    condition: boolean
+    condition: boolean,
+    errormessage?: string
 ): Cypress.Chainable<any> => {
-    const assertion = condition
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Expected element to ${condition ? 'exist' : 'not exist'}, but received ${selector}`
+    );
+
+    assertion = condition
         ? cy.get(selector)
             .should('exist')
             .should('be.visible')
         : cy.get(selector)
             .should('not.exist');
 
-    return logAssertion('Assert Element With Condition', assertion);
+    cy.removeFailListeners();
+    logAssertion('Assert Element With Condition', assertion);
+    return assertion;
 };
 
 /**
@@ -397,12 +565,27 @@ const existWithCondition = (
 const assertAtLeastOneElementWithCssProperty = (
     $element: JQuery<HTMLElement>,
     property: string,
-    expectedValue: string
+    expectedValue: string,
+    errormessage?: string
 ) => {
+    let assertion;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Failed to find an element with the expected ${property} "${expectedValue}"`
+    );
+
     const elementsWithExpectedColor = $element.filter(function () {
         return Cypress.$(this).css(property) === expectedValue;
     });
-    return expect(elementsWithExpectedColor.length).to.be.greaterThan(0, `At least one element with the expected ${property} "${expectedValue}" was found`);
+
+    assertion = expect(elementsWithExpectedColor.length)
+        .to.be.greaterThan(0, `At least one element with the expected ${property} "${expectedValue}" was found`);
+
+    cy.removeFailListeners();
+    logAssertion('Assert At Least One Element With CSS Property');
+    return assertion;
 };
 
 export {
