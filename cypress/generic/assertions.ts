@@ -269,7 +269,8 @@ const assertElementShould = (
 const assertElementContains = (
     selectorOrElement: string | Cypress.Chainable<any>,
     values: string | string[],
-    errormessage?: string
+    errormessage?: string,
+    returned?: boolean
 ): Cypress.Chainable<any> => {
     let currentassertion: any;
 
@@ -288,12 +289,13 @@ const assertElementContains = (
                 : `Failed to find ${text}.`
         );
 
-        // currentassertion = selector
-        //     .wait(400)
-        //     .contains(text);
-
-        currentassertion = selector
-            .should('contain.text', text);
+        if(returned) {
+            currentassertion = selector
+                .contains(text);
+        } else {
+            currentassertion = selector
+                .should('contain.text', text);
+        }
 
         cy.removeFailListeners();
 

@@ -136,7 +136,8 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
                 let option  = assertElementContains(
                     frameElement,
                     value,
-                    `Failed to find ${value} in ${this.getName()}.`
+                    `Failed to find ${value} in ${this.getName()}.`,
+                    true
                 );
 
                 option!.click(

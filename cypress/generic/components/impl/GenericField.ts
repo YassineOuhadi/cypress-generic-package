@@ -148,12 +148,12 @@ class GenericField extends GenericComponent implements IGenericField {
         if (isInput && isAutoComplete) {
             // cyElement.invoke('prop', 'tagName').then((tagName: string) => {
             // if (tagName.toLowerCase() !== 'input') {
-            cyElement.find('input').scrollIntoView().click({ force: true });
+            return cyElement.find('input').scrollIntoView().click({ force: true });
             // }
             // });
-        } else {
-            cyElement.scrollIntoView().click({ force: true });
         }
+
+        return cyElement.scrollIntoView().click({ force: true });
     }
 
     /**
