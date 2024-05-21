@@ -272,11 +272,12 @@ const assertElementContains = (
     errormessage?: string
 ): Cypress.Chainable<any> => {
     let currentassertion: any;
-    let faillistener: any;
 
     const array = Array.isArray(values)
         ? values
         : [values];
+
+    let selector = cyselector(selectorOrElement);
 
     // Iterate through each text value and assert element contains it
     array.forEach(text => {
@@ -287,10 +288,12 @@ const assertElementContains = (
                 : `Failed to find ${text}.`
         );
 
-        currentassertion = cyselector(
-            selectorOrElement
-        ).wait(400)
-            .contains(text);
+        // currentassertion = selector
+        //     .wait(400)
+        //     .contains(text);
+
+        currentassertion = selector
+            .should('contain.text', text);
 
         cy.removeFailListeners();
 

@@ -21,6 +21,27 @@ Cypress.Commands.add('dataCy', (value: string) => {
     return cy.get(`[data-cy=${value}]`)
 })
 
+Cypress.Commands.add('selectOption', (
+    element: Cypress.Chainable<any>, 
+    value: string,
+    options?: any,
+    errormessage?: string
+) => {
+    let result: any;
+
+    cy.onFail(
+        errormessage
+            ? errormessage
+            : `Element with value ${value} not found`
+    );
+
+    result = element
+        .select(value, options);
+
+    cy.removeFailListeners();
+    return result;
+});
+
 Cypress.Commands.add(
     'typeRandomWords',
     { prevSubject: 'element' },

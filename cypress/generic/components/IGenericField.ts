@@ -25,7 +25,7 @@ interface IGenericField extends IGenericComponent {
     getPlaceholder(): string | undefined;
     setPlaceholder(placeholder: string): void;
     type(text: string): Cypress.Chainable<any>;
-    click(): Cypress.Chainable<any>;
+    click(): void;
     fill(values?: string | string[], toignore?: string[], isMultiple?: boolean): Promise<string[]>;
     isValue(value: string): void;
     validateFilledFields(values: string | string[]): void;

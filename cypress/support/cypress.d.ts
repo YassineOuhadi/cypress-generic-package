@@ -30,7 +30,14 @@ declare global {
        */
       dataCy(
         value: string
-      ): Chainable<JQuery<HTMLElement>>
+      ): Chainable<JQuery<HTMLElement>>;
+
+      selectOption(
+        element: Cypress.Chainable<any>,
+        value: string,
+        options?: any,
+        errormessage?: string
+      ): Chainable<any>;
 
       /**
        * Custom command to type a few random words into input elements

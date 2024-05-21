@@ -2,44 +2,44 @@
 
 /// <reference types="Cypress" />
 
-import { 
-    assertElementShould, 
-    assertElementEnabled, 
-    assertElementExist, 
-    assertElementVisible, 
-    assertElementContains, 
-    assertAtLeastOneElementWithCssProperty 
+import {
+    assertElementShould,
+    assertElementEnabled,
+    assertElementExist,
+    assertElementVisible,
+    assertElementContains,
+    assertAtLeastOneElementWithCssProperty
 } from "../../assertions"; // Import assertion utilities
 
-import { 
-    ButtonEntry, 
-    GenericButton 
+import {
+    ButtonEntry,
+    GenericButton
 } from "./GenericButton"; // Import GenericButton class
 
-import { 
-    GenericForm 
+import {
+    GenericForm
 } from "./GenericForm"; // Import GenericForm class
 
-import { 
-    GenericDatatable 
+import {
+    GenericDatatable
 } from "./GenericDatatable"; // Import GenericDatatable class
 
-import { 
-    GenericField 
+import {
+    GenericField
 } from "./GenericField"; // Import GenericField class
 
-import { 
-    GenericMenu 
+import {
+    GenericMenu
 } from "./GenericMenu"; // Import GenericMenu class
 
-import { 
+import {
     COMPONENT_TYPE,
-    IGenericComponent, 
+    IGenericComponent,
     LANGUAGE
 } from "../IGenericComponent";
 
-import { 
-    logInterceptRequest 
+import {
+    logInterceptRequest
 } from "../../logs";
 
 class GenericComponent implements IGenericComponent {
@@ -592,8 +592,8 @@ class GenericComponent implements IGenericComponent {
             // If it's a multi click
             values.forEach((text: string) => {
                 assertElementContains(
-                    this.cyElement(), 
-                    text, 
+                    this.cyElement(),
+                    text,
                     `Failed to find ${text} in ${this.getName()}.`
                 ).click(
                     { force: true }
@@ -635,11 +635,19 @@ class GenericComponent implements IGenericComponent {
         if (Array.isArray(option)) {
             // If multiple options are provided, select each one
             option.forEach((opt: string) => {
-                cyElement.select(opt, selectOptions);
+                cy.selectOption(
+                    cyElement,
+                    opt,
+                    selectOptions
+                );
             });
         } else {
             // If a single option is provided, select it
-            cyElement.select(option as string, selectOptions);
+            cy.selectOption(
+                cyElement,
+                option as string,
+                selectOptions
+            );
         }
     }
 
@@ -1004,7 +1012,7 @@ class GenericComponent implements IGenericComponent {
     }
 }
 
-export { 
+export {
     GenericComponent, // Generic Component class
     COMPONENT_TYPE, // Generic Component Type enum
     LANGUAGE // Language enum
