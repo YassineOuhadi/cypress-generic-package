@@ -769,7 +769,8 @@ class GenericComponent implements IGenericComponent {
         if (typeof value === 'string' || Array.isArray(value)) {
             return assertElementContains(
                 this.cyElement(),
-                value
+                value,
+                true
             );
         } else {
             // Handle the case when values is a Cypress.Chainable<any>
