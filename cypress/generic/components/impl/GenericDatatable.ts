@@ -20,8 +20,8 @@ import {
     GenericComponent
 } from "./GenericComponent";
 
-import { 
-    IGenericDatatable 
+import {
+    IGenericDatatable
 } from "../IGenericDatatable";
 
 /**
@@ -210,7 +210,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
         pagesizeselect: GenericField
     ) {
         this.setField(
-            '_pagesize', 
+            '_pagesize',
             pagesizeselect
         );
     }
@@ -257,7 +257,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
      * @param {SORTING} sortingvalue - The sorting direction.
      */
     sorting(
-        bycolumn: string, 
+        bycolumn: string,
         sortingvalue: SORTING
     ) {
         const column = this.getColumn(bycolumn);
@@ -271,7 +271,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
      * @param {string} filteringvalue - The value to filter by.
      */
     filtering(
-        bycolumn: string, 
+        bycolumn: string,
         filteringvalue: string
     ) {
         const column = this.getColumn(bycolumn);
@@ -412,7 +412,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
      * @param {(rowElement: Cypress.Chainable<JQuery<HTMLElement>>) => void} action - The action to perform on the row.
      */
     interactWithRow(
-        rowIndex: number, 
+        rowIndex: number,
         action: (rowElement: Cypress.Chainable<JQuery<HTMLElement>>) => void
     ) {
         // Retry finding the row element until it becomes available
@@ -443,6 +443,8 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
             ? this.waitForLoadResponse()
             : null;
 
+        cy.onFail('Cannot find rows in the datatable');
+
         this.cyElement().wait(
             timeout
                 ? timeout
@@ -451,6 +453,9 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
             numberOfRows = Cypress.$(rows).length;
             expect(numberOfRows).to.be.greaterThan(0, 'Datatable should have rows');
         });
+
+        cy.removeFailListeners();
+
         return numberOfRows;
     }
 
@@ -461,7 +466,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
      * @param {string} searchText - The text to search for in the column.
      */
     assertTableContains(
-        columnKey: string, 
+        columnKey: string,
         searchText: string
     ): void {
         this.getColumn(columnKey)!.contains(searchText);
