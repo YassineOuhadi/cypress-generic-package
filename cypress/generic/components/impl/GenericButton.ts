@@ -52,6 +52,7 @@ class GenericButton extends GenericComponent implements IGenericButton {
             onLoadRequestUrl,
             onLoadRequestHttpMethod,
             dataFromBackendByDefault,
+            undefined,
             oneventapi,
             onEventHttpMethod
         );

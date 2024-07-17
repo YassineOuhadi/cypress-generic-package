@@ -58,7 +58,8 @@ class GenericField extends GenericComponent implements IGenericField {
             cyElement, 
             api, 
             method, 
-            dataFromBackendByDefault, 
+            dataFromBackendByDefault,
+            undefined, 
             oneventapi, 
             onEventHttpMethod
         );
@@ -165,12 +166,12 @@ class GenericField extends GenericComponent implements IGenericField {
      */
     override fill(values?: string | string[], toignore?: string[], isMultiple?: boolean): Promise<string[]> {
         return new Promise<string[]>((resolve, reject) => {
-            if (values) {
+            if (values && values.length > 0) {
                 // Assert that the text input exists
                 this.exist();
 
                 (this.onLoadRequest!.url && !this.onLoadRequest!.byDefaultOnLoaded)
-                    ? this.waitForLoadResponse()
+                    ? cy.wrap(this.waitForLoadResponse())
                     : null;
 
                 (this.getComponentMenu() && this.getComponentMenu()?.onLoadRequest!.url && !this.getComponentMenu()?.onLoadRequest!.byDefaultOnLoaded)

@@ -43,7 +43,8 @@ class GenericGraph extends GenericComponent implements IGenericGraph {
             cyElement, 
             api, 
             method, 
-            dataFromBackendByDefault, 
+            dataFromBackendByDefault,
+            undefined,
             oneventapi, 
             onEventHttpMethod
         );

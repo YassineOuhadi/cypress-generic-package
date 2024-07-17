@@ -60,6 +60,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
             name, cyelement,
             api, 'GET',
             dataFromBackendByDefault,
+            undefined,
             oneventapi,
             onEventHttpMethod
         );
@@ -440,7 +441,7 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
 
         // Wait for the API request to complete
         (this.onLoadRequest!.url && !this.onLoadRequest!.byDefaultOnLoaded)
-            ? this.waitForLoadResponse()
+            ? cy.wrap(this.waitForLoadResponse())
             : null;
 
         cy.onFail('Cannot find rows in the datatable');

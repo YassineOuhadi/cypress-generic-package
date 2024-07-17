@@ -40,6 +40,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
             api,
             onLoadRequestHttpMethod,
             dataFromBackendByDefault,
+            undefined,
             oneventapi,
             onEventHttpMethod
         );
@@ -74,6 +75,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
                 dataBaseAPI?.onLoadRequestUrl,
                 dataBaseAPI?.onLoadRequestHttpMethod,
                 dataBaseAPI?.isByDefaultOnLoaded,
+                undefined,
                 dataBaseAPI?.onEventRequestUrl,
                 dataBaseAPI?.onEventRequestHttpMethod
             );
@@ -133,7 +135,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
                 //     cy.removeFailListeners(faillistener)
                 // });
 
-                let option  = assertElementContains(
+                let option = assertElementContains(
                     frameElement,
                     value,
                     `Failed to find ${value} in ${this.getName()}.`,
@@ -226,17 +228,19 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
                             if (isMultiple) {
                                 // Select multiple random checkboxes
                                 const randomIndexes: number[] = [];
+                                let randomIndex;
+                                debugger;
                                 while (randomIndexes.length < 2) {
-                                    const randomIndex = Math.floor(Math.random() * elements.length);
+                                    randomIndex = Math.floor(Math.random() * elements.length);
                                     if (!randomIndexes.includes(randomIndex)) {
                                         const value = (
                                             elements[randomIndex].parentElement as HTMLElement
                                         ).querySelector('span, p, div')!
                                             .textContent;
 
-                                        if (value && !toignore?.includes(value)) {
+                                        // if (value && !toignore!.includes(value)) {
+                                        if (value) {
                                             randomIndexes.push(randomIndex);
-                                            // TODO: Bug
                                             (elements[randomIndex].parentElement as HTMLElement).click();
                                             selectedValues.push(value);
                                         }

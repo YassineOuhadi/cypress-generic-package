@@ -50,7 +50,8 @@ class GenericForm extends GenericComponent implements IGenericForm {
             cyelement, 
             api, 
             method, 
-            dataFromBackendByDefault, 
+            dataFromBackendByDefault,
+            undefined, 
             oneventapi, 
             onEventHttpMethod
         )

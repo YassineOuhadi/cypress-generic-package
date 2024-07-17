@@ -105,6 +105,7 @@ class GenericComponent implements IGenericComponent {
         url?: string; // Source API Url
         method?: string; // Http Method sush as 'GET', 'POST' & 'PUT'..
         byDefaultOnLoaded?: boolean; // On DOM Content Loaded
+        expectedLoadCount?: number;
     } = {
         };
 
@@ -130,6 +131,7 @@ class GenericComponent implements IGenericComponent {
         dataBaseUrl?: string,
         onLoadHttpMethod?: string,
         dataFromBackendByDefault?: boolean,
+        expectedLoadCount?: number,
         onEventAPIUrl?: string,
         onEventHttpMethod?: string
     ) {
@@ -145,6 +147,9 @@ class GenericComponent implements IGenericComponent {
         dataFromBackendByDefault
             ? this.onLoadRequest!.byDefaultOnLoaded = dataFromBackendByDefault
             : this.onLoadRequest!.url ? this.onLoadRequest!.byDefaultOnLoaded = false : null;
+        expectedLoadCount
+            ? this.onLoadRequest!.expectedLoadCount = expectedLoadCount
+            : this.onLoadRequest!.url ? this.onLoadRequest!.expectedLoadCount = 1 : null;
         onEventHttpMethod
             ? this.onEventRequest!.method = onEventHttpMethod
             : this.onEventRequest!.url ? this.onEventRequest!.method = 'POST' : null;
@@ -290,6 +295,7 @@ class GenericComponent implements IGenericComponent {
             onLoadRequestUrl: string;
             onLoadRequestHttpMethod?: string;
             isByDefaultOnLoaded?: boolean,
+            expectedLoadCount?: number
             onEventRequestUrl?: string,
             onEventRequestHttpMethod?: string
         }>
@@ -306,6 +312,7 @@ class GenericComponent implements IGenericComponent {
                 dataBaseAPI?.onLoadRequestUrl,
                 dataBaseAPI?.onLoadRequestHttpMethod,
                 dataBaseAPI?.isByDefaultOnLoaded,
+                dataBaseAPI?.expectedLoadCount,
                 dataBaseAPI?.onEventRequestUrl,
                 dataBaseAPI?.onEventRequestHttpMethod
             );
@@ -963,10 +970,12 @@ class GenericComponent implements IGenericComponent {
         timeout?: number
     ) {
         if (this.onLoadRequest!.url) {
-            cy.waitingAliasRequest(
-                this.getName(),
-                timeout
-            );
+            for (let i = 0; i < this.onLoadRequest!.expectedLoadCount; i++) {
+                cy.waitingAliasRequest(
+                    this.getName(),
+                    timeout
+                );
+            }
         }
     }
 
