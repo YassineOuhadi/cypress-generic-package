@@ -7,9 +7,6 @@
   ],
   "main": "dist/cy-generic-objects.js",
   "types": "dist/index.d.ts",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "scripts": {
     "build": "webpack",
     "cypress:run": "cypress run --headed",

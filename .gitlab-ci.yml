@@ -16,7 +16,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
     - npm publish --access public
   environment: production
   dependencies:
