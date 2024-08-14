@@ -16,8 +16,8 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}">.npmrc
-    - npm publish
+    - echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
+    - npm publish --access public
   environment: production
   dependencies:
     - build

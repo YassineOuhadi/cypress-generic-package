@@ -436,13 +436,15 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
      */
     assertDatatableHasRows(
         timeout?: number
-    ): number {
-        let numberOfRows = 0;
+    ): any {
+        let data;
 
         // Wait for the API request to complete
-        (this.onLoadRequest!.url && !this.onLoadRequest!.byDefaultOnLoaded)
-            ? cy.wrap(this.waitForLoadResponse())
-            : null;
+        if (this.onLoadRequest!.url && !this.onLoadRequest!.byDefaultOnLoaded) {
+            cy.wrap(this.waitForLoadResponse()).then((result) => {
+                data = result;
+            })
+        };
 
         cy.onFail('Cannot find rows in the datatable');
 
@@ -451,13 +453,13 @@ class GenericDatatable extends GenericComponent implements IGenericDatatable {
                 ? timeout
                 : 0
         ).find('tbody > tr').then(rows => {
-            numberOfRows = Cypress.$(rows).length;
+            let numberOfRows = Cypress.$(rows).length;
             expect(numberOfRows).to.be.greaterThan(0, 'Datatable should have rows');
         });
 
         cy.removeFailListeners();
 
-        return numberOfRows;
+        return data;
     }
 
     /**
