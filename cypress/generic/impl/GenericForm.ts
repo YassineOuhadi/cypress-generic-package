@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     GenericButton 
 } from "./GenericButton";
@@ -20,7 +20,7 @@ import {
 
 import { 
     IGenericForm 
-} from "../IGenericForm";
+} from "../components/IGenericForm";
 
 /**
  * Represents a generic form component.
@@ -228,13 +228,12 @@ class GenericForm extends GenericComponent implements IGenericForm {
      * Submits the form.
      */
     submitForm() {
-        // TODO: this.cyElement().submit() // Buutons, Submits???, also valide eatch compnent is attr input or ....
         const submitButtons = this.getSubmitButtons();
         if (submitButtons.length > 0) {
             // submitFields.forEach(submitField => {
             //     submitField.cyElement.click({ force: true });
             // });
-            submitButtons[0].cyElement().click({ force: true }); //TODO: Multi Submit Buttons, To Fixed, case of more thanb one submit, shoud get by key
+            submitButtons[0].cyElement().click({ force: true });
         } else {
             console.warn('No submit fields found.');
         }

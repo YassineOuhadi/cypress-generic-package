@@ -1,13 +1,13 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     assertElementShould 
-} from "../../assertions";
+} from "../../shared/assertions";
 
 import { 
     FIELD_ENTRY, 
     IGenericField
-} from "../IGenericField";
+} from "../components/IGenericField";
 
 import { 
     COMPONENT_TYPE, 

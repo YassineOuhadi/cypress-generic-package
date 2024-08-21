@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     IGenericColumn, 
     SORTING_ORDER 

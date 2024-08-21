@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     IGenericButton 
 } from "./IGenericButton"; // Import IGenericButton interface

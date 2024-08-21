@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 export { 
     IGenericGraph, 
     GRAPH_ENTRY 

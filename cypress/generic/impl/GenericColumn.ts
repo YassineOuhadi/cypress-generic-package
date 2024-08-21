@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     GenericButton 
 } from "./GenericButton";
@@ -17,7 +17,7 @@ import {
 import { 
     IGenericColumn, 
     SORTING_ORDER 
-} from "../IGenericColumn";
+} from "../components/IGenericColumn";
 
 /**
  * Represents a generic column component.

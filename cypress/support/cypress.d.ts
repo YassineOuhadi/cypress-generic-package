@@ -14,7 +14,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import "./commands";
+import "../shared/commands";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

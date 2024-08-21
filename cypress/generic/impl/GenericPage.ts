@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import {
     assertURLIncludes
-} from "../../assertions";
+} from "../../shared/assertions";
 
 
 import {
@@ -12,7 +12,7 @@ import {
 
 import { 
     IGenericPage 
-} from "../IGenericPage";
+} from "../components/IGenericPage";
 
 /**
  * Represents a generic page component.

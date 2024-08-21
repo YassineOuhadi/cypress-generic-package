@@ -1,9 +1,9 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     GRAPH_ENTRY,
     IGenericGraph 
-} from "../IGenericGraph";
+} from "../components/IGenericGraph";
 
 import { 
     COMPONENT_TYPE, 

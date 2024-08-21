@@ -3,9 +3,15 @@
   "files": [
     "../cypress.config.ts"
   ],
-  "include": ["**/*.ts", "./support/cypress.d.ts"],
+  "include": [
+    "**/*.ts",
+    "./support/cypress.d.ts"
+  ],
   "compilerOptions": {
     "sourceMap": false,
-    "types": ["node", "cypress"],
+    "types": [
+      "node", 
+      "cypress"
+    ],
   }
 }

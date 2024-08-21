@@ -11,13 +11,15 @@
 
 import {
     generateRandomWords
-} from "../utils";
+} from "../support/utils";
 
 // interface TypeOptions extends Cypress.TypeOptions {
 //     sensitive: boolean
 // }
 
-Cypress.Commands.add('dataCy', (value: string) => {
+Cypress.Commands.add('dataCy', (
+    value: string
+) => {
     return cy.get(`[data-cy=${value}]`)
 })
 
@@ -50,15 +52,23 @@ Cypress.Commands.add(
     }
 )
 
-Cypress.Commands.add("interceptAPIRequest", (method: string, url: string, alias: string) => {
+Cypress.Commands.add("interceptAPIRequest",(
+    method: string, 
+    url: string, 
+    alias: string
+) => {
     if (['GET', 'POST', 'PUT', 'DELETE'].includes(method)) {
-        cy.intercept(method, url).as(alias);
+        cy.intercept(method, url)
+          .as(alias);
     } else {
         throw new Error('Unsupported HTTP method');
     }
 });
 
-Cypress.Commands.add("waitingAliasRequest", (alias: string, timeout?: number) => {
+Cypress.Commands.add("waitingAliasRequest", (
+    alias: string,
+    timeout?: number
+) => {
     cy.wait('@' + alias, {
         requestTimeout:
             timeout
@@ -67,8 +77,9 @@ Cypress.Commands.add("waitingAliasRequest", (alias: string, timeout?: number) =>
     });
 });
 
-Cypress.Commands.add('onFail', (message?): any => {
-
+Cypress.Commands.add('onFail', (
+    message?
+): any => {
     let listener = (error: { name: string; message: string; }, runnable: any) => {
         error.name = 'Error'
         error.message = message
@@ -84,7 +95,9 @@ Cypress.Commands.add('onFail', (message?): any => {
     });
 })
 
-Cypress.Commands.add('removeFailListeners', (listener?): any => {
+Cypress.Commands.add('removeFailListeners', (
+    listener?
+): any => {
     let removelistener = () => {
         listener
             ? cy.removeListener('fail', listener)

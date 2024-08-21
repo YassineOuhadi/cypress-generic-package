@@ -1,9 +1,9 @@
 /// <reference types="Cypress" />
-
-import { assertElementContains } from "../../assertions";
+// @ts-nocheck
+import { assertElementContains } from "../../shared/assertions";
 import {
     IGenericMenu
-} from "../IGenericMenu";
+} from "../components/IGenericMenu";
 
 import {
     COMPONENT_TYPE,
@@ -52,7 +52,6 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
         return this.getElement(key);
     }
 
-    // TODO: Make it generic, [setElements]
     setItems(
         itemSelectors: Record<string, () => Cypress.Chainable<any>>,
         menuSelectors?: Record<string, () => Cypress.Chainable<any>>,
@@ -266,7 +265,7 @@ class GenericMenu extends GenericComponent implements IGenericMenu {
 
                                 if (value) {
                                     (
-                                        elements[randomIndex].parentElement as HTMLElement// BU CLICK CJEBOX NOT WORK TODO:
+                                        elements[randomIndex].parentElement as HTMLElement
                                     ).click();
                                     if (this.onEventRequest!.url) {
                                         this.waitForEventResponse()

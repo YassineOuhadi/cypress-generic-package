@@ -1,10 +1,12 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-
-/node_modules
-package-lock.json
-
-/dist
+.git
+.gitignore
+.npmignore
 .npmrc
 
-cypress.config.ts
+/node_modules
 /cypress/e2e
+/dist
+
+package-lock.json
+cypress.config.ts

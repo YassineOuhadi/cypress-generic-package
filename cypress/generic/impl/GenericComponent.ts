@@ -1,7 +1,5 @@
-// @ts-nocheck
-
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import {
     assertElementShould,
     assertElementEnabled,
@@ -9,7 +7,7 @@ import {
     assertElementVisible,
     assertElementContains,
     assertAtLeastOneElementWithCssProperty
-} from "../../assertions"; // Import assertion utilities
+} from "../../shared/assertions"; // Import assertion utilities
 
 import {
     ButtonEntry,
@@ -36,11 +34,11 @@ import {
     COMPONENT_TYPE,
     IGenericComponent,
     LANGUAGE
-} from "../IGenericComponent";
+} from "../components/IGenericComponent";
 
 import {
     logInterceptRequest
-} from "../../logs";
+} from "../../shared/logs";
 
 class GenericComponent implements IGenericComponent {
 
@@ -571,11 +569,6 @@ class GenericComponent implements IGenericComponent {
                 dataBaseAPI?.onEventRequestUrl,
                 dataBaseAPI?.onEventRequestHttpMethod
             );
-
-            // TODO: Simple Items / Other Childs Menus
-            // item ?
-            //     genericMenu.setMenu(menuName + '_menu', new GenericMenu(menuName + '_menu', item, dataBaseAPI?.url, dataBaseAPI?.dataFromBackendByDefault)) 
-            //     : null;
 
             this.setMenu(
                 menuName,

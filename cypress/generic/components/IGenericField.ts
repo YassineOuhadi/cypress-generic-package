@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     IGenericComponent 
 } from "./IGenericComponent";

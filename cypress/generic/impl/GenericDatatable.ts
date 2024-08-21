@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import {
     BUTTON_ENTRY,
     GenericButton
@@ -22,7 +22,7 @@ import {
 
 import {
     IGenericDatatable
-} from "../IGenericDatatable";
+} from "../components/IGenericDatatable";
 
 /**
  * Represents a generic datatable component.

@@ -1,9 +1,9 @@
 /// <reference types="Cypress" />
-
+// @ts-nocheck
 import { 
     BUTTON_ENTRY, 
     IGenericButton 
-} from "../IGenericButton";
+} from "../components/IGenericButton";
 
 import { 
     COMPONENT_TYPE, 

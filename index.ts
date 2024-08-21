@@ -1,6 +1,6 @@
 // index.ts
-import * as Assertions from './cypress/generic/assertions';
-import * as Logs from './cypress/generic/logs';
+import * as Assertions from './cypress/shared/assertions';
+import * as Logs from './cypress/shared/logs';
 
 export {
     Assertions,
@@ -33,40 +33,40 @@ export {
 
 export { 
     GenericComponent 
-} from './cypress/generic/components/impl/GenericComponent';
+} from './cypress/generic/impl/GenericComponent';
 
 export { 
     GenericPage 
-} from './cypress/generic/components/impl/GenericPage';
+} from './cypress/generic/impl/GenericPage';
 
 export { 
     GenericDatatable 
-} from './cypress/generic/components/impl/GenericDatatable';
+} from './cypress/generic/impl/GenericDatatable';
 
 export { 
     GenericColumn 
-} from './cypress/generic/components/impl/GenericColumn';
+} from './cypress/generic/impl/GenericColumn';
 
 export { 
     GenericForm 
-} from './cypress/generic/components/impl/GenericForm';
+} from './cypress/generic/impl/GenericForm';
 
 export { 
     GenericField 
-} from './cypress/generic/components/impl/GenericField';
+} from './cypress/generic/impl/GenericField';
 
 export { 
     GenericButton 
-} from './cypress/generic/components/impl/GenericButton';
+} from './cypress/generic/impl/GenericButton';
 
 export { 
     GenericMenu 
-} from './cypress/generic/components/impl/GenericMenu';
+} from './cypress/generic/impl/GenericMenu';
 
 export { 
     GenericGraph 
-} from './cypress/generic/components/impl/GenericGraph';
+} from './cypress/generic/impl/GenericGraph';
 
 export { 
     SubmitResult 
-} from './cypress/generic/model/submitResult';
+} from './cypress/shared/model/submitResult';
