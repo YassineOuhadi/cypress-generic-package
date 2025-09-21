@@ -1,0 +1,12 @@
+{
+  "URL": "https://the-internet.herokuapp.com/",
+  "MENU": {
+    "MainMenu": {
+      "SELECTOR": { "cmd": "get", "args": ["ul"] },
+      "ITEMS": {
+        "A/B Testing": { "cmd": "contains", "args": ["A/B Testing"] },
+        "Form Authentication": { "cmd": "contains", "args": ["Form Authentication"] }
+      }
+    }
+  }
+}

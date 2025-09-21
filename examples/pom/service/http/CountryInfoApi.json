@@ -1,0 +1,11 @@
+{
+  "WSDL_URL": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+  "NAMESPACE": "http://www.oorsprong.org/websamples.countryinfo",
+  "HEADERS": { "Authorization": "Bearer XXX" },
+  "OPERATIONS": {
+    "CapitalCity": {
+      "DEFAULT_ARGS": { "sCountryISOCode": "US" },
+      "SOAPAction": "http://webservices.oorsprong.org/websamples.countryinfo/CapitalCity"
+    }
+  }
+}

@@ -13,5 +13,9 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import '../shared/commands'
+// cypress/support/e2e.ts
+// import 'cypress-mochawesome-reporter/register';
+
+// Import commands.js using ES2015 syntax
+import './commands/chainable'
+import './commands/pom'

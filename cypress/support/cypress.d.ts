@@ -1,37 +1,33 @@
-
 // ***********************************************************
-// This example support/component.ts is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
+// This file is loaded automatically before your test files.
+// It is the ideal place to put global configuration, custom
+// commands, and behavior modifications for Cypress.
 // ***********************************************************
 
 import "../shared/commands";
+import { PageResolver } from "./resolver/pom/PageResolver";
 
-// Augment the Cypress namespace to include type definitions for
-// your custom command.
-// Alternatively, can be defined in cypress/support/component.d.ts
-// with a <reference path="./component" /> at the top of your spec.
+// -------------------------------------------------------------------
+// Type definitions for custom Cypress commands and environment
+// -------------------------------------------------------------------
 declare global {
   namespace Cypress {
-    interface Chainable {
+    /** Project configuration loaded per scenario */
+    interface ProjectConfig {
+      SERVICE_REGISTRY: Record<string, any>;
+      POM_REGISTRY: Record<string, any>;
+    }
 
+    interface Chainable {
       /**
-       * Custom command to select DOM element by data-cy attribute.
+       * Select DOM element by data-cy attribute.
        * @example cy.dataCy('greeting')
        */
-      dataCy(
-        value: string
-      ): Chainable<JQuery<HTMLElement>>;
+      dataCy(value: string): Chainable<JQuery<HTMLElement>>;
 
+      /**
+       * Select option in a form element
+       */
       selectOption(
         element: Cypress.Chainable<any>,
         value: string,
@@ -40,33 +36,49 @@ declare global {
       ): Chainable<any>;
 
       /**
-       * Custom command to type a few random words into input elements
-       * @param count=3
-       * @example cy.get('input').typeRandomWords()
+       * Intercept an API request and alias it
        */
-      typeRandomWords(
-        count?: number,
-        options?: Partial<TypeOptions>
-      ): Chainable<JQuery<HTMLElement>>
-      
-      interceptAPIRequest(
-        method: string, 
-        url: string, 
-        alias: string
-      ): Chainable<any>;
+      interceptAPIRequest(method: string, url: string, alias: string): Chainable<any>;
 
-      waitingAliasRequest(
-        alias: string, 
-        timeout?: number
-      ): Chainable<any>;
-      
-      onFail(
-        message?: string,
-      ): Promise<any>;
+      /**
+       * Wait for an alias request to complete
+       */
+      waitingAliasRequest(alias: string, timeout?: number): Chainable<any>;
 
-      removeFailListeners(
-        listener?: any
-      ): Chainable<any>;
+      /**
+       * Custom failure handler
+       */
+      onFail(message?: string): Promise<any>;
+
+      /**
+       * Remove Cypress failure listeners
+       */
+      removeFailListeners(listener?: any): Chainable<any>;
+
+      /**
+       * Resolve a page by its name and return a PageResolver
+       */
+      resolvePage(page: string): Chainable<PageResolver>;
+
+      /**
+       * Get the current page resolver instance
+       */
+      currentPageResolver(): Chainable<PageResolver>;
+
+      /**
+       * Get the current page object instance
+       */
+      currentPageObject(): Chainable<GenericPage>;
+
+      /**
+       * Load project-specific configuration
+       */
+      task(event: "loadProjectConfig", arg: string): Chainable<ProjectConfig>;
+
+      /**
+       * Load default project configuration
+       */
+      task(event: "loadDefaultConfig"): Chainable<ProjectConfig>;
     }
   }
 }

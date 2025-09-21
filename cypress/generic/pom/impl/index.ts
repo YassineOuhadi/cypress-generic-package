@@ -1,0 +1,9 @@
+export { GenericComponent } from './GenericComponent';
+export { GenericPage } from './GenericPage';
+export { GenericDatatable } from './GenericDatatable';
+export { GenericColumn } from './GenericColumn';
+export { GenericForm } from './GenericForm';
+export { GenericField } from './GenericField';
+export { GenericButton } from './GenericButton';
+export { GenericMenu } from './GenericMenu';
+export { GenericGraph } from './GenericGraph';

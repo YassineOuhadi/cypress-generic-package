@@ -1,72 +1,46 @@
 // index.ts
+import path from 'path';
+
 import * as Assertions from './cypress/shared/assertions';
 import * as Logs from './cypress/shared/logs';
+import { SubmitResult } from './cypress/shared/models/SubmitResult';
 
-export {
+export { 
+    COMPONENT_TYPE,
+    LANGUAGE 
+} from './cypress/generic/pom/core/IGenericComponent';
+
+export { FIELD_ENTRY } from './cypress/generic/pom/components/IGenericField';
+export { BUTTON_ENTRY } from './cypress/generic/pom/components/IGenericButton';
+export { GRAPH_ENTRY } from './cypress/generic/pom/components/IGenericGraph';
+export { SORTING_ORDER } from './cypress/generic/pom/components/IGenericColumn';
+
+export { 
     Assertions,
-    Logs
+    Logs,
+    SubmitResult
 };
 
 export { 
-     COMPONENT_TYPE
-} from './cypress/generic/components/IGenericComponent';
+    GenericComponent,
+    GenericPage,
+    GenericDatatable,
+    GenericColumn,
+    GenericForm,
+    GenericField,
+    GenericButton,
+    GenericMenu,
+    GenericGraph
+} from './cypress/generic/pom/impl';
 
 export { 
-    FIELD_ENTRY
-} from './cypress/generic/components/IGenericField';
+    GenericCommunication,
+    GenericGraphqlApi,
+    GenericRestApi,
+    GenericSoapApi,
+    GenericWebSocketApi
+} from './cypress/generic/service/impl';
 
-export { 
-    BUTTON_ENTRY
-} from './cypress/generic/components/IGenericButton';
-
-export { 
-    GRAPH_ENTRY
-} from './cypress/generic/components/IGenericGraph';
-
-export { 
-    SORTING_ORDER
-} from './cypress/generic/components/IGenericColumn';
-
-export { 
-    LANGUAGE
-} from './cypress/generic/components/IGenericComponent';
-
-export { 
-    GenericComponent 
-} from './cypress/generic/impl/GenericComponent';
-
-export { 
-    GenericPage 
-} from './cypress/generic/impl/GenericPage';
-
-export { 
-    GenericDatatable 
-} from './cypress/generic/impl/GenericDatatable';
-
-export { 
-    GenericColumn 
-} from './cypress/generic/impl/GenericColumn';
-
-export { 
-    GenericForm 
-} from './cypress/generic/impl/GenericForm';
-
-export { 
-    GenericField 
-} from './cypress/generic/impl/GenericField';
-
-export { 
-    GenericButton 
-} from './cypress/generic/impl/GenericButton';
-
-export { 
-    GenericMenu 
-} from './cypress/generic/impl/GenericMenu';
-
-export { 
-    GenericGraph 
-} from './cypress/generic/impl/GenericGraph';
-
-export { 
-    SubmitResult 
-} from './cypress/shared/model/submitResult';
+export const supportFile = (typeof process !== 'undefined' && process.versions?.node)
+    ? path.join(__dirname, 'cypress/support/e2e.js')
+    : '';

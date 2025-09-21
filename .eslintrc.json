@@ -9,7 +9,7 @@
         "browser": true,
         "es6": true,
         "node": true,
-        "cypress/globals": true  // Add this line
+        "cypress/globals": true
     },
     "parserOptions": {
         "ecmaVersion": 2021,

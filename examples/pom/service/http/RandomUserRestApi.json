@@ -1,0 +1,14 @@
+{
+  "BASE_URL": "https://randomuser.me",
+  "HEADERS": {
+    "Authorization": "Bearer TOKEN123"
+  },
+  "ENDPOINTS": {
+    "/api": {
+      "METHOD": "GET",
+      "HEADERS": {
+        "X-Custom": "custom-header"
+      }
+    }
+  }
+}

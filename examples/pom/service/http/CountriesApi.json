@@ -1,0 +1,14 @@
+{
+  "URL": "https://countries.trevorblades.com/",
+  "QUERIES": {
+    "AllCountries": {
+      "QUERY": "{ countries { code name emoji } }"
+    }
+  },
+  "MUTATIONS": {
+    "AddCountry": {
+      "MUTATION": "mutation($code: ID!, $name: String!) { addCountry(code: $code, name: $name) { code name } }",
+      "VARIABLES": { "code": "XX", "name": "Test Country" }
+    }
+  }
+}

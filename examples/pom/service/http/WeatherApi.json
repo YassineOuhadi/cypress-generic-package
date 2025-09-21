@@ -1,0 +1,12 @@
+{
+  "WSDL_URL": "https://www.w3schools.com/xml/tempconvert.asmx?WSDL",
+  "SOAP": {
+    "call": {
+      "cmd": "POST",
+      "headers": {
+        "Content-Type": "text/xml"
+      },
+      "bodyTemplate": "<SOAP_ENVELOPE_WITH_OPERATION_AND_ARGS>"
+    }
+  }
+}

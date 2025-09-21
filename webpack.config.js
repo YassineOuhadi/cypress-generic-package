@@ -3,11 +3,11 @@ const path = require('path');
 
 module.exports = {
   mode: 'production',
-  entry: './index.ts', // entry point to library
+  entry: './index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'cy-generic-objects.js', //  library name
-    library: 'CyGenericObjects', // library name
+    filename: 'cy-generic-objects.js',
+    library: 'CyGenericObjects',
     libraryTarget: 'umd',
     globalObject: 'this',
     umdNamedDefine: true

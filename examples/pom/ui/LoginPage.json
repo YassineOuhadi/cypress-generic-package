@@ -1,0 +1,26 @@
+{
+  "URL": "https://the-internet.herokuapp.com/login",
+  "FORM": {
+    "LoginForm": {
+      "SELECTOR": { "cmd": "get", "args": ["#login"] },
+      "FIELDS": {
+        "username": {
+          "SELECTOR": { "cmd": "get", "args": ["input[name='username']"] },
+          "entry": ["INPUT"],
+          "isOptional": false
+        },
+        "password": {
+          "SELECTOR": { "cmd": "get", "args": ["input[name='password']"] },
+          "entry": ["INPUT"],
+          "isOptional": false
+        }
+      },
+      "BUTTONS": {
+        "submit": {
+          "SELECTOR": { "cmd": "get", "args": ["button[type='submit']"] },
+          "type": "SUBMIT"
+        }
+      }
+    }
+  }
+}
