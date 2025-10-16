@@ -44,3 +44,9 @@ export {
 export const supportFile = (typeof process !== 'undefined' && process.versions?.node)
     ? path.join(__dirname, 'cypress/support/e2e.js')
     : '';
+
+export const stepDefinitions = (() => {
+  const pkgRoot = path.resolve(__dirname);
+  const distPath = path.join(pkgRoot, '**', '*.cy.js');
+  return distPath;
+})();

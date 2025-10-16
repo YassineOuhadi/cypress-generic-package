@@ -1,8 +1,6 @@
 # Contributing to Cypress Generic Library
 
-Thank you for your interest in contributing! Contributions help improve the library and make it more useful for the community.
-
-A detailed **code structure guide** and explanation of **how the library works internally** will be added in the `docs` folder soon.
+A detailed **code structure guide** and explanation of **how the library works** will be added in the `docs` folder soon.
 
 ---
 

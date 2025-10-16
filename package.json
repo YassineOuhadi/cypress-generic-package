@@ -1,6 +1,6 @@
 {
   "name": "@yassinouhadi/cypress-generic-package",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Cypress generic objects + ready-to-run tests",
   "files": [
     "dist",
@@ -18,7 +18,7 @@
   "main": "dist/cy-generic-objects.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "cypress-generic": "./bin/cli.js"
+    "feature-assured": "./bin/cli.js"
   },
   "scripts": {
     "build": "npm run build:lib && npm run build:ts && npm run copy-config",
