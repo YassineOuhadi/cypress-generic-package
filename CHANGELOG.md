@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.7] - 2025-10-16
+## [1.0.8] - 2025-10-16
 
 ### Added
 - CLI Interface for initializing projects, generating JSON schemas, and launching Cypress.

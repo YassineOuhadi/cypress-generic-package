@@ -1,6 +1,6 @@
 {
   "name": "@yassinouhadi/cypress-generic-package",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Cypress generic objects + ready-to-run tests",
   "files": [
     "dist",
