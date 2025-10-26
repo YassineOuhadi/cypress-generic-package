@@ -1,0 +1,45 @@
+flowchart TB
+    %% Main components
+    CLI["CLI Tool (BDD Pre-Implemented config)"]
+    NPM["@yassinouhadi/cypress-generic-package"]
+    Generic["Generic Objects (Buttons, Forms, etc)"]
+    Steps["Generic Step Definitions (Ready to use steps)"]
+    Tests["Your Tests (Custom Pages and Tests)"]
+    Feature["Feature Assured Extension (VS Code)"]
+    Service["Service Objects (REST, GraphQL, SOAP)"]
+    Deps["Library dependencies cypress, cucumber-preprocessor, esbuild-preprocessor"]
+    CI["CI / Feature Assured Docker(Run tests in CI)"]
+
+    %% Simple flow
+    NPM --> Generic
+    NPM --> Steps
+    
+    CLI -->|"Setup"| Tests
+    Generic -->|"Extend"| Tests
+    Steps -->|"Use in"| Tests
+    NPM --> Service
+    Service -->|"Use / Mock"| Tests
+    Deps --> Generic
+    Deps --> Steps
+
+    %% Feature Assured Integration
+    Feature -->|"Generate"| Tests
+    CLI <-->|"Sync Templates"| Feature
+    Tests -->|"Run in CI"| CI
+    Feature -->|"Provides image"| CI
+
+    %% Simple styling
+    style CLI fill:#f9d71c
+    style NPM fill:#cb3837
+    style Generic fill:#04b1d6
+    style Steps fill:#04b1d6
+    style Tests fill:#32b135
+    style Feature fill:#007acc
+
+    %% Simple notes
+    %% 1. Install package from npm
+    %% 2. Use CLI to setup BDD Pre-Implemented approach config
+    %% 3. Extend generic objects (UI) and use Service objects for API interactions
+    %% 4. Use generic steps and included service steps
+    %% 5. Tests rely on library dependencies: cypress, cucumber preprocessor, esbuild preprocessor
+    %% 6. Tests can be executed in CI using the Feature Assured Docker image

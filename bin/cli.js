@@ -151,7 +151,6 @@ async function initProject() {
   const nameArgIndex = args.findIndex(a => a === "--name");
   const providedName = nameArgIndex !== -1 ? args[nameArgIndex + 1] : null;
 
-  // --- NEW: container node path option ---
   const nodePathIndex = args.findIndex(a => a === "--node-path");
   const containerNodePath = nodePathIndex !== -1 ? args[nodePathIndex + 1] : null;
 
@@ -200,7 +199,6 @@ async function initProject() {
       : {};
   }
 
-  // --- NEW: adjust supportFile and stepDefinitions paths ---
   const pkgModulePath = containerNodePath
     ? path.join(containerNodePath, "@yassinouhadi/cypress-generic-package")
     : require.resolve("@yassinouhadi/cypress-generic-package");
@@ -256,7 +254,7 @@ module.exports = defineConfig({
     pkg.scripts["cy:open"] = `CYPRESS_ENV_FILE='${envFile}' cypress open`;
     pkg.scripts["cy:run"] = `CYPRESS_ENV_FILE='${envFile}' && xvfb-run -a cypress run`;
     pkg.scripts["report:html"] = `npx multiple-cucumber-html-reporter --jsonDir=cypress/reports/json --reportPath=cypress/reports/html`;
-    pkg.scripts["test:full"] = `rm -rf cypress/reports && npm run cy:run && npm run report:html`;
+    pkg.scripts["test:full"] = `rm -rf cypress/reports && npm run cy:run --`;
     pkg["cypress-cucumber-preprocessor"] = {
       stepDefinitions: stepDefinitionsPath,
       html: { enabled: true, output: "cypress/reports/html/cucumber-report.html" },
@@ -354,7 +352,7 @@ async function copyExample(type) {
   if (fs.existsSync(packageJsonPath)) {
     const pkg = await fs.readJson(packageJsonPath);
     pkg.scripts["cy:open"] = `CYPRESS_ENV_FILE='cypress/env/examples.json' cypress open`;
-    pkg.scripts["cy:run"] = `CYPRESS_ENV_FILE='cypress/env/examples.json' cypress run`;
+    pkg.scripts["cy:run"] = `CYPRESS_ENV_FILE='cypress/env/examples.json' && xvfb-run -a cypress run`;
     await fs.writeJson(packageJsonPath, pkg, { spaces: 2 });
     console.log("Updated npm scripts to use CYPRESS_ENV_FILE='examples.json'");
   }

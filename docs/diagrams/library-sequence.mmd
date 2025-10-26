@@ -1,0 +1,70 @@
+sequenceDiagram
+  autonumber
+  participant Dev as Developer
+  participant NPM as NPM / Package
+  participant CLI as CLI (feature-assured)
+  participant VSCode as FeatureAssured Ext
+  participant Local as Local Project
+  participant Tests as Tests
+  participant Steps as Generic StepDefs
+  participant Cmd as Custom Commands
+  participant Res as Resolvers
+  participant POM as Generic POM/Impl
+  participant Service as Service Clients
+  participant External as External APIs
+  participant Webpack as Webpack
+  participant Dist as Dist Bundle
+  participant GH as GitHub Actions
+  participant Registry as NPM Registry
+  participant CI as CI (FeatureAssured Docker)
+
+  Note over Dev,NPM: Install the library as dependency
+  Dev ->> NPM: npm install @yassinouhadi/cypress-generic-package
+  NPM -->> Dev: Adds `cypress/`, `bin/cli.js`, `dist/`, step-defs
+
+  Note over Dev,CLI: Developer runs CLI to scaffold or setup BDD-ready config
+  Dev ->> CLI: npx feature-assured init / run
+  CLI -->> Local: generate page objects, example tests, templates
+
+  Note over Dev,VSCode: Or use the FeatureAssured extension to visually scaffold
+  Dev ->> VSCode: open project, use extension
+  VSCode ->> Local: generate/sync templates
+  VSCode -->> CLI: sync templates (optional)
+
+  Note over Local,Tests: Developer customizes or extends Generic objects
+  Local ->> POM: extend Generic Objects (Buttons, Forms, Pages)
+  Local ->> Steps: customize or call Generic Step Definitions
+
+  Note over Tests,Steps: Test execution path
+  Tests ->> Steps: run step (Given/When/Then)
+  Steps ->> Cmd: call custom command / helper
+  Cmd ->> Res: delegate to resolver (pom or service)
+  Res ->> POM: use Generic POM implementation (UI actions)
+  Res -->> Cmd: UI result
+  Cmd ->> Steps: return result to step
+  Steps -->> Tests: assertion / test flow continues
+
+  Note over Res,Service: Service calls flow
+  Cmd ->> Res: request service operation
+  Res ->> Service: call REST/GraphQL/SOAP client
+  Service ->> External: network call
+  External -->> Service: response
+  Service -->> Res: response
+  Res -->> Cmd: returns service data
+
+  Note over Dev,Webpack: Build / publish flow
+  Dev ->> Webpack: npm run build (webpack + tsc -> dist)
+  Webpack ->> Dist: produce UMD bundle (dist/cy-generic-objects.js)
+  Dev ->> GH: push tag/commit
+  GH ->> Registry: GitHub Actions builds and publishes to NPM
+  Registry -->> NPM: package available for install
+
+  Note over CI,Tests: CI execution using Feature Assured Docker image
+  CI ->> Local: checkout repo + npm ci
+  CI ->> CI: use FeatureAssured Docker image (has cypress + preprocessors)
+  CI ->> Tests: run cypress run (uses installed package, CLI-generated tests)
+  Tests ->> Service: may call or mock Service Clients
+  Tests -->> CI: results (reports)
+
+  Note over Dev,Local: Summary
+  Dev -->> Local: developer writes/extends tests using provided building blocks
