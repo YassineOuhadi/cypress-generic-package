@@ -1,6 +1,6 @@
 {
   "name": "@yassinouhadi/cypress-generic-package",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Cypress generic objects + ready-to-run tests",
   "files": [
     "dist",
@@ -30,13 +30,15 @@
     "copy-configg": "cpx \"cypress.config.ts\" dist",
     "cypress:open": "cypress open --project ./dist/cypress",
     "clean:reports": "rm -rf cypress/reports || true",
-    "cypress:run": "npx npm run clean:reports && cypress run"
+    "cypress:run": "npx npm run clean:reports && cypress run",
+    "generate:diagrams": "rm -f docs/diagrams/*.svg && for file in docs/diagrams/*.mmd; do npx mmdc -i \"$file\" -o \"${file%.mmd}.svg\"; done"
   },
   "devDependencies": {
     "@babel/core": "^7.24.5",
     "@babel/preset-env": "^7.24.5",
     "@badeball/cypress-cucumber-preprocessor": "^23.2.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.6",
+    "@mermaid-js/mermaid-cli": "^11.12.0",
     "@types/node": "^24.6.0",
     "@types/vscode": "^1.104.0",
     "babel-loader": "^10.0.0",

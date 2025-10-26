@@ -7,8 +7,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- Documentation links for approaches, schemas, and step library.
-- Feature Assured VS Code extension integration.
+- N/A
 
 ### Changed
 - N/A
@@ -17,12 +16,28 @@ All notable changes to this project will be documented in this file.
 - N/A
 
 ### To Do
+- [ ] Optimize npm dependency size for smaller package footprint.
+- [ ] Enrish generic BDD steps library.  
 - [ ] Extend JSON schema support for more complex WebSocket and GraphQL scenarios.
 - [ ] Customized Cypress logging to provide user guidance when writing Cucumber scenarios.
 - [ ] Add integration layer between POM and HTTP/ Real-Time objects to enable hybrid UI + API tests.
 - [ ] Add built-in HTTP mocking and response validators.  
-- [ ] Add plugin support for connecting with external test management tools (e.g. Xray, Zephyr).  
-- [ ] Enhance documentation with code structure explanation and internal architecture.
+
+---
+
+## [1.0.9] - 2025-10-26
+
+### Added
+
+- Enriched documentation with library architecture.
+
+### Changed
+
+- N/A
+
+### Fixed
+
+- Fixed cy:full package command to support configuration options.
 
 ---
 

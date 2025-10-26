@@ -1,0 +1,70 @@
+%% Cypress Generic Library Low Level Design (Mermaid)
+%% File: docs/diagrams/cypress-generic-library-lld.mmd
+flowchart TB
+  %% Test layer
+  subgraph Tests [Tests / Feature files]
+    direction TB
+    Specs["Specs/ Features (cypress/integration/*)"]
+    StepDefs["Step Definitions (cypress/support/step_definitions/*.cy.ts)"]
+    Reports["Reports (cypress/reports/*)"]
+    Fixtures["Test Data (cypress/fixtures/*.json)"]
+  end
+
+  %% Support layer
+  subgraph Support [Support / Helpers]
+    direction TB
+    Commands["Custom Commands (cypress/support/commands/*)"]
+    Tasks["Tasks (cypress/support/tasks.ts)"]
+    Clients["Clients (cypress/support/clients/*Client.ts)"]
+    Helpers["Helpers / Logger / Utils (cypress/support/helpers/*)"]
+  end
+
+  %% Resolver layer
+  subgraph Resolvers [Resolvers]
+    direction TB
+    ResolverPOM["Pom Resolvers (cypress/resolver/pom/*Resolver.ts)"]
+    ResolverService["Service Resolvers (cypress/resolver/service/*Resolver.ts)"]
+  end
+
+  %% Generic domain layer
+  subgraph Generic [Generic objects / POM / Service impl]
+    direction TB
+    GenericPOM["Generic POM interfaces & JSON (cypress/generic/pom/*, pom/*.json)"]
+    GenericImpl["Generic Implementations (cypress/generic/impl/*)"]
+    GenericService["Generic Service impl (cypress/generic/service/impl/*)"]
+    Wrappers["Wrappers and chainable extensions (cypress/wrappers/*, cypress/shared/chainable/*)"]
+    Assertions["Shared Assertions (cypress/shared/assertions/*)"]
+  end
+
+  %% External
+  External["External systems\n(API, GraphQL, SOAP, WebSocket)"]
+
+  %% Flow arrows
+  Specs --> StepDefs
+  StepDefs --> Commands
+  StepDefs --> GenericPOM
+  StepDefs --> Fixtures
+  StepDefs --> Reports
+  Commands --> ResolverPOM
+  Commands --> ResolverService
+  ResolverPOM --> GenericPOM
+  ResolverPOM --> GenericImpl
+  ResolverService --> GenericService
+  ResolverService --> Clients
+  GenericImpl --> Wrappers
+  GenericPOM --> Wrappers
+  Wrappers --> Assertions
+  Clients --> External
+  External --> Clients
+  Clients --> ResolverService
+  ResolverService --> Commands
+  Commands --> Tasks
+  Tasks --> Clients
+
+  %% Annotations (clickable links)
+  click Commands href "https://github.com/YassineOuhadi/cypress-generic-package/tree/main/cypress/support/commands" "Open commands folder"
+  click ResolverPOM href "https://github.com/YassineOuhadi/cypress-generic-package/tree/main/cypress/resolver/pom" "Open pom resolvers"
+  click ResolverService href "https://github.com/YassineOuhadi/cypress-generic-package/tree/main/cypress/resolver/service" "Open service resolvers"
+
+  classDef layer fill:#f9f9f9,stroke:#333,stroke-width:1px
+  class Tests,Support,Resolvers,Generic layer
